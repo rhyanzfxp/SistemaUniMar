@@ -51,7 +51,8 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   backface-visibility: hidden;
-  will-change: transform, backdrop-filter;
+  will-change: transform;
+  contain: paint;
 }
 
 .glow-cyan   { box-shadow: 0 0 20px var(--primary-glow), 0 0 60px rgba(0,212,255,0.1); }
