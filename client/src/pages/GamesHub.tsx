@@ -74,8 +74,8 @@ export default function GamesHub() {
             Jogos
           </span>
         </h1>
-        <p style={{ color: '#64748B', fontSize: '1rem', maxWidth: '500px', margin: '0 auto' }}>
-          Selecione um minijogo e entre em competição. Cada jogo tem 10 questões cronometradas.
+        <p style={{ color: '#64748B', fontSize: '1rem', maxWidth: '600px', margin: '0 auto' }}>
+          Escolha um desafio e mergulhe no conhecimento. Explore quizzes temáticos ou teste suas habilidades em nossos minijogos interativos de ação e estratégia.
         </p>
       </div>
 
@@ -94,7 +94,7 @@ export default function GamesHub() {
             <Link to={`/games/${game.slug}`} key={game.id} style={{ textDecoration: 'none' }}>
               <div
                 className={`glass-card game-card ${glowClasses[game.category]}`}
-                style={{ padding: '36px', position: 'relative', overflow: 'hidden', height: '100%' }}
+                style={{ padding: '36px', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
               >
 
                 <div
@@ -175,6 +175,7 @@ export default function GamesHub() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
+                    marginTop: 'auto'
                   }}
                 >
                   Iniciar Jogo <ChevronRight size={16} />
@@ -200,7 +201,7 @@ export default function GamesHub() {
           <Link to="/games/ecossistema" style={{ textDecoration: 'none' }}>
             <div
               className="glass-card game-card glow-green"
-              style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%' }}
+              style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }} />
               <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🌿</div>
@@ -213,7 +214,117 @@ export default function GamesHub() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Gamepad2 size={14} /> 9 espécies</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Zap size={14} /> Drag & Drop</div>
               </div>
-              <button className="btn-primary" style={{ width: '100%', padding: '12px', borderRadius: '10px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #00D4FF)' }}>
+              <button className="btn-primary" style={{ width: '100%', padding: '12px', borderRadius: '10px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #00D4FF)', marginTop: 'auto' }}>
+                Jogar Agora <ChevronRight size={16} />
+              </button>
+            </div>
+          </Link>
+
+          <Link to="/games/poluicao" style={{ textDecoration: 'none' }}>
+            <div
+              className="glass-card game-card glow-amber"
+              style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
+            >
+              <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }} />
+              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🛢️</div>
+              <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.4)', color: '#F59E0B', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Poluição · Simulador</span>
+              <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#F59E0B', margin: '0 0 12px' }}>Simulador de Poluição Visual</h2>
+              <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
+                Suas decisões diárias têm impacto direto no oceano. Jogue este simulador interativo e veja a água mudar conforme as suas escolhas ambientais.
+              </p>
+              <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Gamepad2 size={14} /> 5 Cenários</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Zap size={14} /> Interativo</div>
+              </div>
+              <button className="btn-primary" style={{ width: '100%', padding: '12px', borderRadius: '10px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #F59E0B, #EF4444)', marginTop: 'auto' }}>
+                Jogar Agora <ChevronRight size={16} />
+              </button>
+            </div>
+          </Link>
+
+          <Link to="/games/limpeza" style={{ textDecoration: 'none' }}>
+            <div
+              className="glass-card game-card glow-cyan"
+              style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
+            >
+              <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(0,212,255,0.1)', border: '1px solid rgba(0,212,255,0.2)' }} />
+              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🧹</div>
+              <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(0,212,255,0.2)', border: '1px solid rgba(0,212,255,0.4)', color: '#00D4FF', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Ação · Clicker</span>
+              <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#00D4FF', margin: '0 0 12px' }}>Limpeza Oceânica</h2>
+              <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
+                Teste seus reflexos! Remova o lixo que cai na água antes que chegue ao fundo, mas tome cuidado para não assustar os animais marinhos.
+              </p>
+              <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Clock size={14} /> Ritmo Acelerado</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Zap size={14} /> Reflexos</div>
+              </div>
+              <button className="btn-primary" style={{ width: '100%', padding: '12px', borderRadius: '10px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #00D4FF, #3B82F6)', marginTop: 'auto' }}>
+                Jogar Agora <ChevronRight size={16} />
+              </button>
+            </div>
+          </Link>
+
+          <Link to="/games/tartaruga" style={{ textDecoration: 'none' }}>
+            <div
+              className="glass-card game-card glow-green"
+              style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
+            >
+              <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }} />
+              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🐢</div>
+              <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.4)', color: '#10B981', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Runner · Morte Súbita</span>
+              <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#10B981', margin: '0 0 12px' }}>Mergulho da Tartaruga</h2>
+              <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
+                Nade para desviar do lixo oceânico e colete águas-vivas para ganhar pontos! Um toque no plástico e é Game Over.
+              </p>
+              <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Clock size={14} /> Infinito</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Zap size={14} /> Difícil</div>
+              </div>
+              <button className="btn-primary" style={{ width: '100%', padding: '12px', borderRadius: '10px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #059669)', marginTop: 'auto' }}>
+                Jogar Agora <ChevronRight size={16} />
+              </button>
+            </div>
+          </Link>
+
+          <Link to="/games/defensor" style={{ textDecoration: 'none' }}>
+            <div
+              className="glass-card game-card glow-cyan"
+              style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
+            >
+              <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }} />
+              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🪸</div>
+              <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.4)', color: '#10B981', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Estratégia · Tower Defense</span>
+              <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#10B981', margin: '0 0 12px' }}>Defensor dos Corais</h2>
+              <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
+                Proteja o recife! Posicione defensores para impedir que o lixo e o peixe-leão destruam os corais.
+              </p>
+              <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Clock size={14} /> Infinito</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Zap size={14} /> Média</div>
+              </div>
+              <button className="btn-primary" style={{ width: '100%', padding: '12px', borderRadius: '10px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #059669)', marginTop: 'auto' }}>
+                Jogar Agora <ChevronRight size={16} />
+              </button>
+            </div>
+          </Link>
+
+          <Link to="/games/mangue" style={{ textDecoration: 'none' }}>
+            <div
+              className="glass-card game-card glow-amber"
+              style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
+            >
+              <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }} />
+              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🦀</div>
+              <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.4)', color: '#F59E0B', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Labirinto · Puzzle</span>
+              <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#F59E0B', margin: '0 0 12px' }}>Resgate no Mangue</h2>
+              <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
+                Navegue pelo labirinto de raízes e salve os filhotes perdidos antes que o tempo se esgote!
+              </p>
+              <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Clock size={14} /> 45s</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#475569', fontSize: '0.8rem' }}><Zap size={14} /> Puzzle</div>
+              </div>
+              <button className="btn-primary" style={{ width: '100%', padding: '12px', borderRadius: '10px', fontSize: '0.95rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #F59E0B, #EF4444)', marginTop: 'auto' }}>
                 Jogar Agora <ChevronRight size={16} />
               </button>
             </div>
@@ -238,8 +349,9 @@ export default function GamesHub() {
             Como funciona?
           </p>
           <p style={{ color: '#64748B', fontSize: '0.875rem', margin: 0 }}>
-            Responda 10 questões cronometradas. Cada acerto vale até 100 pts. Respostas rápidas dão bônus!
-            Ao final, insira seu nome e entre no ranking global. 🏆
+            Escolha entre <strong>Quizzes de Conhecimento</strong> ou <strong>Desafios Interativos</strong> de ação e estratégia. 
+            Acumule pontos salvando o oceano, desviando do lixo ou respondendo corretamente sobre a biodiversidade do Ceará. 
+            Ao final, conquiste seu lugar no ranking global! 🏆
           </p>
         </div>
       </div>

@@ -7,6 +7,11 @@ import GamePlay from './pages/GamePlay';
 import Leaderboard from './pages/Leaderboard';
 import Learn from './pages/Learn';
 import EcosystemGame from './pages/EcosystemGame';
+import PollutionSimulator from './pages/PollutionSimulator';
+import OceanCleanupGame from './pages/OceanCleanupGame';
+import TurtleRunnerGame from './pages/TurtleRunnerGame';
+import CoralDefenderGame from './pages/CoralDefenderGame';
+import MangroveMazeGame from './pages/MangroveMazeGame';
 
 export default function App() {
   return (
@@ -27,6 +32,11 @@ export default function App() {
             <Route path="/learn" element={<Learn />} />
             <Route path="/games" element={<GamesHub />} />
             <Route path="/games/ecossistema" element={<EcosystemGame />} />
+            <Route path="/games/poluicao" element={<PollutionSimulator />} />
+            <Route path="/games/limpeza" element={<OceanCleanupGame />} />
+            <Route path="/games/tartaruga" element={<TurtleRunnerGame />} />
+            <Route path="/games/defensor" element={<CoralDefenderGame />} />
+            <Route path="/games/mangue" element={<MangroveMazeGame />} />
             <Route path="/games/:slug" element={<GamePlay />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
           </Routes>

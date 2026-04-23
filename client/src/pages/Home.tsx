@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 const stats = [
-  { value: '4', label: 'Minijogos', icon: Gamepad2 },
+  { value: '9', label: 'Minijogos', icon: Gamepad2 },
   { value: '30', label: 'Questões', icon: Zap },
   { value: '∞', label: 'Diversão', icon: Fish },
   { value: '#1', label: 'Ranking', icon: Trophy },
@@ -50,6 +50,46 @@ const features = [
     color: '#7C3AED',
     glow: 'glow-purple',
   },
+  {
+    icon: '🛢️',
+    title: 'Simulador de Poluição',
+    description:
+      'Suas decisões diárias têm impacto direto no oceano. Jogue este simulador interativo e veja a água mudar conforme as suas escolhas ambientais.',
+    color: '#F59E0B',
+    glow: 'glow-amber',
+  },
+  {
+    icon: '🧹',
+    title: 'Limpeza Oceânica',
+    description:
+      'Teste seus reflexos! Remova o lixo que cai na água antes que chegue ao fundo, mas tome cuidado para não assustar os animais marinhos.',
+    color: '#00D4FF',
+    glow: 'glow-cyan',
+  },
+  {
+    icon: '🐢',
+    title: 'Mergulho da Tartaruga',
+    description:
+      'Nade para desviar do lixo oceânico e colete águas-vivas para ganhar pontos! Um toque no plástico e é Game Over.',
+    color: '#10B981',
+    glow: 'glow-green',
+  },
+  {
+    icon: '🪸',
+    title: 'Defensor dos Corais',
+    description:
+      'Proteja o recife! Posicione defensores para impedir que o lixo e o peixe-leão destruam os corais.',
+    color: '#10B981',
+    glow: 'glow-cyan',
+  },
+  {
+    icon: '🦀',
+    title: 'Resgate no Mangue',
+    description:
+      'Navegue pelo labirinto de raízes e salve os filhotes perdidos antes que o tempo se esgote!',
+    color: '#F59E0B',
+    glow: 'glow-amber',
+  },
 ];
 
 const levels = [
@@ -76,7 +116,7 @@ export default function Home() {
         }}
       >
 
-        {[...Array(12)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
             style={{
