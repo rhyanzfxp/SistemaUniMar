@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useRef, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react';
 
 function createAudioCtx(): AudioContext | null {
   try {

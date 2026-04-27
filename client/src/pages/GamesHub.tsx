@@ -4,7 +4,12 @@ import { Gamepad2, Clock, Zap, ChevronRight, Loader } from 'lucide-react';
 import { gameService } from '../services/api';
 import type { Game } from '../models/types';
 
-const difficultyLabels = { fauna: 'Média', flora: 'Fácil-Média', pollution: 'Média-Difícil' };
+const difficultyLabels: Record<string, string> = { 
+  fauna: 'Média', 
+  flora: 'Fácil-Média', 
+  pollution: 'Média-Difícil',
+  ecosystem: 'Interativo'
+};
 const categoryColors: Record<string, string> = {
   fauna: '#00D4FF',
   flora: '#10B981',
@@ -90,7 +95,7 @@ export default function GamesHub() {
             gap: '20px',
           }}
         >
-          {games.map((game) => (
+          {games.filter(g => g.category !== 'ecosystem').map((game) => (
             <Link to={`/games/${game.slug}`} key={game.id} style={{ textDecoration: 'none' }}>
               <div
                 className={`glass-card game-card ${glowClasses[game.category]}`}

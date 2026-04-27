@@ -16,6 +16,7 @@ const categoryMeta: Record<string, { color: string; glow: string; gameSlug: stri
   fauna:     { color: '#00D4FF', glow: 'glow-cyan',   gameSlug: 'fauna-marinha' },
   flora:     { color: '#10B981', glow: 'glow-green',  gameSlug: 'flora-marinha' },
   pollution: { color: '#F59E0B', glow: 'glow-amber',  gameSlug: 'poluicao-oceanica' },
+  ecosystem: { color: '#10B981', glow: 'glow-green',  gameSlug: 'ecossistema' },
 };
 
 function KnowledgeCard({ card }: { card: StudyCard }) {

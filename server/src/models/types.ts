@@ -20,7 +20,7 @@ export interface Game {
   maxScore: number;
   questionCount: number;
   timeLimit: number; 
-  category: 'fauna' | 'flora' | 'pollution';
+  category: 'fauna' | 'flora' | 'pollution' | 'ecosystem';
 }
 
 export interface ScoreEntry {

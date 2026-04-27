@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Clock, CheckCircle, XCircle, Trophy, ArrowLeft, Loader } from 'lucide-react';
 import { gameService, scoreService } from '../services/api';
 import type { Game, GameQuestion, AnswerResult, GameSession } from '../models/types';
@@ -15,7 +15,6 @@ type GamePhase = 'loading' | 'playing' | 'result' | 'save' | 'error';
 
 export default function GamePlay() {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
   const { playCorrect, playWrong, playFanfare, playTick } = useSound();
 
   const [game, setGame] = useState<Game | null>(null);

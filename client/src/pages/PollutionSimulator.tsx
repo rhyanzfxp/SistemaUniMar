@@ -66,8 +66,6 @@ export default function PollutionSimulator() {
   const [finished, setFinished] = useState(false);
   const [feedback, setFeedback] = useState<{ text: string; isGood: boolean } | null>(null);
 
-  const totalPointsAvailable = DECISIONS.length * 20;
-
   useEffect(() => {
     if (feedback) {
       const timer = setTimeout(() => {
@@ -116,7 +114,6 @@ export default function PollutionSimulator() {
   };
 
   const currentDecision = DECISIONS[currentStep];
-  const percentageScore = Math.round((score / totalPointsAvailable) * 100);
 
   return (
     <div style={{
@@ -127,7 +124,7 @@ export default function PollutionSimulator() {
       backgroundColor: getOceanBackground(),
     }}>
       
-      {/* Elementos flutuantes de fundo */}
+      {}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none', overflow: 'hidden' }}>
         <div style={{ opacity: 1 - (pollutionLevel / 100), transition: 'opacity 1.5s' }}>
           <div className="float-anim" style={{ position: 'absolute', top: '20%', left: '10%', fontSize: '3rem', animationDelay: '0s' }}>🐠</div>
@@ -143,7 +140,7 @@ export default function PollutionSimulator() {
           <div className="float-anim" style={{ position: 'absolute', bottom: '10%', left: '15%', fontSize: '2.5rem', animationDelay: '1s' }}>🥫</div>
         </div>
         
-        {/* Camada de Turvação (Overlays) */}
+        {}
         <div style={{
           position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
           background: 'linear-gradient(to bottom, rgba(50,50,50,0) 0%, rgba(30,40,30,0.7) 100%)',
@@ -172,7 +169,7 @@ export default function PollutionSimulator() {
           </div>
         </div>
 
-        {/* Indicador de Poluição Superior */}
+        {}
         <div style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', borderRadius: '12px', padding: '12px 16px', marginBottom: '32px', border: '1px solid rgba(255,255,255,0.1)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.85rem', color: '#E2E8F0', fontWeight: 600 }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Droplet size={14} color="#00D4FF"/> Oceano Limpo</span>
