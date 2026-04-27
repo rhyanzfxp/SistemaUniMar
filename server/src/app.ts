@@ -10,7 +10,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.CLIENT_URL,
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+].filter(Boolean);
+
+app.use(cors({ 
+  origin: allowedOrigins,
+  credentials: true 
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,9 +41,11 @@ app.use((_, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🌊 UniMar API running at http://localhost:${PORT}`);
-  console.log(`📋 Health: http://localhost:${PORT}/health`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🌊 UniMar API running at http://localhost:${PORT}`);
+    console.log(`📋 Health: http://localhost:${PORT}/health`);
+  });
+}
 
 export default app;

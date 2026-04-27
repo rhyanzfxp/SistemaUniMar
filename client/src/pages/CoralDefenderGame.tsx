@@ -41,7 +41,7 @@ export default function CoralDefenderGame() {
     nextTowerId: 1,
   });
 
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number | null>(null);
 
   useEffect(() => { stateRef.current.gameState = gameState; }, [gameState]);
   useEffect(() => { stateRef.current.energy = energy; }, [energy]);

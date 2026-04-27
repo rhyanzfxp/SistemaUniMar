@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, RotateCcw, Trophy } from 'lucide-react';
+import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
 
 interface Species {

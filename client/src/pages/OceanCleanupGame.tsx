@@ -33,7 +33,7 @@ export default function OceanCleanupGame() {
   const scoreRef = useRef(0);
   const gameStateRef = useRef<'start' | 'playing' | 'gameover' | 'victory'>('start');
   
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number | null>(null);
   const lastSpawnTime = useRef<number>(0);
   const nextId = useRef(1);
   const lastItemsLengthRef = useRef(0);

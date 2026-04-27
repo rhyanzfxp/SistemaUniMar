@@ -23,7 +23,6 @@ const MAX_FALL_SPEED = 6;
 const TURTLE_X = 20;
 const BASE_GAME_SPEED = 0.55;
 const SPAWN_RATE = 1800;
-const COLLISION_DISTANCE = 6;
 
 export default function TurtleRunnerGame() {
   const { playCorrect, playWrong, playFanfare } = useSound();
@@ -42,7 +41,7 @@ export default function TurtleRunnerGame() {
   const scoreRef = useRef(score);
   const lastSpawnTimeRef = useRef(0);
   const nextEntityId = useRef(1);
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number | null>(null);
   const lastEntitiesLengthRef = useRef(0);
   
   const bgPosRef = useRef(0);
@@ -217,7 +216,7 @@ export default function TurtleRunnerGame() {
       ref={canvasRef}
     >
       
-      {/* Background Parallax */}
+      {}
       <div 
         id="game-bg"
         style={{ 
@@ -230,7 +229,7 @@ export default function TurtleRunnerGame() {
         }} 
       />
 
-      {/* Top HUD */}
+      {}
       <div style={{ position: 'relative', zIndex: 10, padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', pointerEvents: 'none' }}>
         <Link to="/games" style={{ pointerEvents: 'auto' }}>
           <button className="btn-secondary" style={{ padding: '8px 14px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.2)' }} onClick={(e) => e.stopPropagation()}>
@@ -244,17 +243,17 @@ export default function TurtleRunnerGame() {
         </div>
       </div>
 
-      {/* Dica visual flutuante indicando para clicar */}
+      {}
       {gameState === 'playing' && score === 0 && (
         <div style={{ position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.6)', fontFamily: 'Outfit, sans-serif', fontSize: '1.2rem', pointerEvents: 'none', animation: 'fade-in-out 2s infinite' }}>
           Clique repetidamente para nadar!
         </div>
       )}
 
-      {/* Game Area */}
+      {}
       <div style={{ position: 'absolute', top: '70px', left: 0, right: 0, bottom: 0, overflow: 'hidden' }}>
         
-        {/* Player (Tartaruga) */}
+        {}
         <div
           id="turtle-player"
           style={{
@@ -271,7 +270,7 @@ export default function TurtleRunnerGame() {
           🐢
         </div>
 
-        {/* Entities */}
+        {}
         {entitiesState.map(ent => (
           <div
             key={ent.id}
@@ -292,7 +291,7 @@ export default function TurtleRunnerGame() {
         ))}
       </div>
 
-      {/* Overlays */}
+      {}
       {gameState === 'start' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.5)', backdropFilter: 'blur(4px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '500px', textAlign: 'center', margin: '20px', pointerEvents: 'auto' }} onMouseDown={(e) => e.stopPropagation()}>

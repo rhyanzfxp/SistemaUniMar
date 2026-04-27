@@ -25,8 +25,10 @@ Uma plataforma educacional gamificada focada na **Cultura Oceânica**, desenvolv
 ##  Stack Tecnológica
 
 - **Frontend:** React, TypeScript, Vite, Tailwind CSS, Lucide Icons, React Router.
-- **Backend:** Node.js, Express, TypeScript, ts-node-dev.
-- **Dados:** Armazenamento em memória (fase atual), com arquitetura preparada (MVC) para fácil migração para Supabase/PostgreSQL.
+- **Backend:** Node.js, Express, TypeScript, Serverless (Vercel Functions).
+- **Banco de Dados:** Supabase (PostgreSQL).
+- **Deploy:** Vercel (Frontend + Backend Serverless).
+- **Arquitetura:** MVC (Model-View-Controller).
 
 ##  Como Executar o Projeto Localmente
 
