@@ -63,7 +63,7 @@ export default function Footer() {
         </div>
 
         <p style={{ color: '#334155', fontSize: '0.8rem', margin: 0 }}>
-          © 2026 UniMar · Ciberespaço Oceânico · Fortaleza, CE
+          © 2026 UniMar · Plataforma Educacional Oceânica · Fortaleza, CE
         </p>
       </div>
     </footer>

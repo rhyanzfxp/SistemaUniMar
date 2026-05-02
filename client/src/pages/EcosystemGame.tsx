@@ -34,10 +34,10 @@ const SPECIES: Species[] = [
   { id: 'garça', name: 'Garça-branca', emoji: '🦢', correctZone: 'coastal', hint: 'Pousa na beira do manguezal para pescar' },
   { id: 'guaiamum', name: 'Guaiamum', emoji: '🦞', correctZone: 'root', hint: 'Escava tocas na lama das raízes' },
   { id: 'tainha', name: 'Tainha', emoji: '🐟', correctZone: 'water', hint: 'Peixe que habita as águas do estuário' },
-  { id: 'siriu', name: 'Siri-azul', emoji: '🦐', correctZone: 'water', hint: 'Nada livremente nas águas rasas estuarinas' },
+  { id: 'siriu', name: 'Siri-azul', emoji: '🦀', correctZone: 'water', hint: 'Nada livremente nas águas rasas estuarinas' },
   { id: 'socozinho', name: 'Socó-do-mangue', emoji: '🐦', correctZone: 'coastal', hint: 'Ave que aninha no manguezal' },
   { id: 'robalo', name: 'Robalo', emoji: '🐠', correctZone: 'water', hint: 'Peixe predador das águas mais profundas' },
-  { id: 'camarao', name: 'Camarão-rosa', emoji: '🦩', correctZone: 'water', hint: 'Juvenis crescem nas águas do manguezal' },
+  { id: 'camarao', name: 'Camarão-rosa', emoji: '🦐', correctZone: 'water', hint: 'Juvenis crescem nas águas do manguezal' },
 ];
 
 const ZONES: Zone[] = [

@@ -27,6 +27,7 @@ export default function GamePlay() {
   const [playerName, setPlayerName] = useState('');
   const [saving, setSaving] = useState(false);
   const [savedRank, setSavedRank] = useState<number | null>(null);
+  const [shuffledOptions, setShuffledOptions] = useState<{ text: string; originalIndex: number }[]>([]);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const tickedRef = useRef(false); 
 
@@ -46,6 +47,12 @@ export default function GamePlay() {
           finished: false,
         });
         setTimeLeft(g.timeLimit);
+        
+        if (q.length > 0) {
+          const opts = q[0].options.map((text, i) => ({ text, originalIndex: i }));
+          setShuffledOptions([...opts].sort(() => Math.random() - 0.5));
+        }
+
         setPhase('playing');
       })
       .catch(() => setPhase('error'));
@@ -148,6 +155,10 @@ export default function GamePlay() {
       setSelectedAnswer(null);
       setAnswerResult(null);
       setTimeLeft(game.timeLimit);
+
+      const nextQ = session.questions[nextIndex];
+      const opts = nextQ.options.map((text, i) => ({ text, originalIndex: i }));
+      setShuffledOptions([...opts].sort(() => Math.random() - 0.5));
     }
   };
 
@@ -356,25 +367,26 @@ export default function GamePlay() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
-        {currentQuestion.options?.map((opt, idx) => {
+        {shuffledOptions.map((opt, displayIdx) => {
+          const originalIdx = opt.originalIndex;
           let extraClass = '';
           if (selectedAnswer !== null && answerResult) {
-            if (idx === answerResult.correctAnswer) extraClass = 'correct';
-            else if (idx === selectedAnswer && !answerResult.isCorrect) extraClass = 'wrong';
+            if (originalIdx === answerResult.correctAnswer) extraClass = 'correct';
+            else if (originalIdx === selectedAnswer && !answerResult.isCorrect) extraClass = 'wrong';
           }
           return (
             <button
-              key={idx}
-              id={`answer-option-${idx}`}
-              onClick={() => handleSelectAnswer(idx)}
+              key={originalIdx}
+              id={`answer-option-${originalIdx}`}
+              onClick={() => handleSelectAnswer(originalIdx)}
               disabled={selectedAnswer !== null}
               className={`option-btn ${extraClass}`}
               style={{ padding: 'clamp(12px, 3vw, 16px) clamp(14px, 3vw, 20px)', borderRadius: '12px', fontSize: 'clamp(0.88rem, 2.5vw, 0.95rem)', display: 'flex', alignItems: 'center', gap: '10px' }}
             >
               <span style={{ width: '26px', height: '26px', borderRadius: '50%', border: `1.5px solid ${extraClass === 'correct' ? '#10B981' : extraClass === 'wrong' ? '#EF4444' : 'rgba(255,255,255,0.15)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.78rem', fontWeight: 700, color: extraClass === 'correct' ? '#10B981' : extraClass === 'wrong' ? '#EF4444' : '#475569', flexShrink: 0 }}>
-                {String.fromCharCode(65 + idx)}
+                {String.fromCharCode(65 + displayIdx)}
               </span>
-              <span style={{ flex: 1, textAlign: 'left' }}>{opt}</span>
+              <span style={{ flex: 1, textAlign: 'left' }}>{opt.text}</span>
               {extraClass === 'correct' && <CheckCircle size={16} color="#10B981" style={{ flexShrink: 0 }} />}
               {extraClass === 'wrong' && <XCircle size={16} color="#EF4444" style={{ flexShrink: 0 }} />}
             </button>
@@ -398,13 +410,28 @@ export default function GamePlay() {
               {answerResult.isCorrect
                 ? <CheckCircle size={18} color="#10B981" style={{ flexShrink: 0, marginTop: '2px' }} />
                 : <XCircle size={18} color="#EF4444" style={{ flexShrink: 0, marginTop: '2px' }} />}
-              <div>
+              <div style={{ flex: 1 }}>
                 <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: answerResult.isCorrect ? '#10B981' : '#EF4444', margin: '0 0 6px', fontSize: '0.9rem' }}>
                   {answerResult.isCorrect ? `+${answerResult.points} pontos! ` : selectedAnswer === -1 ? 'Tempo esgotado!' : 'Resposta errada.'}
                 </p>
-                <p style={{ color: '#94A3B8', fontSize: '0.875rem', margin: 0, lineHeight: 1.6 }}>
-                  {answerResult.explanation}
-                </p>
+                {(() => {
+                  const parts = (answerResult.explanation || '').split('Fonte:');
+                  const text = parts[0].trim();
+                  const source = parts[1] ? parts[1].trim() : null;
+                  return (
+                    <>
+                      <p style={{ color: '#94A3B8', fontSize: '0.875rem', margin: 0, lineHeight: 1.6 }}>
+                        {text}
+                      </p>
+                      {source && (
+                        <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '6px', padding: '6px 10px', borderRadius: '8px', background: 'rgba(0,212,255,0.08)', border: '1px solid rgba(0,212,255,0.2)' }}>
+                          <span style={{ fontSize: '0.7rem', color: '#00D4FF', fontWeight: 700, fontFamily: 'Outfit, sans-serif', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>📚 Fonte:</span>
+                          <span style={{ color: '#64A8C8', fontSize: '0.78rem', lineHeight: 1.4 }}>{source}</span>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
             </div>
           </div>

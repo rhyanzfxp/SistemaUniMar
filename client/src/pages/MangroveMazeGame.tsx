@@ -114,7 +114,7 @@ export default function MangroveMazeGame() {
   const getCellContent = (val: number, x: number, y: number) => {
     if (playerPos.x === x && playerPos.y === y) return '🦀';
     if (val === 1) return '🌿';
-    if (val === 2) return '🐣';
+    if (val === 2) return '🦀';
     if (val === 3) return '🏁';
     return '';
   };
@@ -140,7 +140,7 @@ export default function MangroveMazeGame() {
             <Clock size={18} /> {timeLeft}s
           </div>
           <div style={{ background: 'rgba(0,0,0,0.4)', padding: '6px 16px', borderRadius: '99px', display: 'flex', gap: '8px', alignItems: 'center', color: '#FCD34D', fontWeight: 800 }}>
-            🐣 {babiesCollected}/{TOTAL_BABIES}
+            🦀 {babiesCollected}/{TOTAL_BABIES}
           </div>
         </div>
       </div>
@@ -150,11 +150,12 @@ export default function MangroveMazeGame() {
         {gameState !== 'start' && (
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(12, minmax(20px, 40px))', 
-            gap: '2px', 
+            gridTemplateColumns: 'repeat(12, 1fr)', 
+            width: 'min(95vw, 500px)',
+            gap: '1px', 
             background: 'rgba(0,0,0,0.3)', 
-            padding: '8px', 
-            borderRadius: '12px',
+            padding: '4px', 
+            borderRadius: '8px',
             border: '1px solid rgba(16,185,129,0.2)'
           }}>
             {maze.map((row, y) => (
@@ -202,7 +203,7 @@ export default function MangroveMazeGame() {
             <p style={{ color: '#E2E8F0', marginBottom: '24px', lineHeight: 1.6 }}>
               Os filhotes de caranguejo estão perdidos nas raízes do manguezal!<br/><br/>
               🦀 Use as <strong>Setas</strong> ou <strong>WASD</strong> para mover.<br/>
-              👶 Resgate os <strong>4 filhotes</strong> perdidos.<br/>
+              🦀 Resgate os <strong>4 filhotes</strong> perdidos.<br/>
               🏁 Chegue à <strong>saída</strong> antes que o tempo acabe.
             </p>
 

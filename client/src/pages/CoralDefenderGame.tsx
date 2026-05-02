@@ -54,8 +54,13 @@ export default function CoralDefenderGame() {
     playFanfare();
   }, [playFanfare]);
 
-  const updateGame = useCallback(() => {
+  const lastFrameTimeRef = useRef<number>(0);
+
+  const updateGame = useCallback((timestamp: number) => {
     if (stateRef.current.gameState !== 'playing') return;
+
+    const delta = lastFrameTimeRef.current ? Math.min((timestamp - lastFrameTimeRef.current) / 16.667, 3) : 1;
+    lastFrameTimeRef.current = timestamp;
 
     const now = Date.now();
     const st = stateRef.current;
@@ -113,8 +118,8 @@ export default function CoralDefenderGame() {
 
     for (let i = st.projectiles.length - 1; i >= 0; i--) {
       const p = st.projectiles[i];
-      p.x += p.dx;
-      p.y += p.dy;
+      p.x += p.dx * delta;
+      p.y += p.dy * delta;
 
       const target = st.enemies.find(e => e.id === p.targetId);
       let hit = false;
@@ -148,8 +153,8 @@ export default function CoralDefenderGame() {
       }
 
       const angle = Math.atan2(CENTER_Y - e.y, CENTER_X - e.x);
-      e.x += Math.cos(angle) * e.speed;
-      e.y += Math.sin(angle) * e.speed;
+      e.x += Math.cos(angle) * e.speed * delta;
+      e.y += Math.sin(angle) * e.speed * delta;
 
       if (Math.hypot(CENTER_X - e.x, CENTER_Y - e.y) < 5) {
         st.coralHp -= e.maxHp * 5;
@@ -196,6 +201,7 @@ export default function CoralDefenderGame() {
       nextProjId: 1,
       nextTowerId: 1,
     };
+    lastFrameTimeRef.current = 0;
     setGameState('playing');
     setEnergy(50);
     setCoralHp(100);
@@ -242,7 +248,19 @@ export default function CoralDefenderGame() {
 
       <div style={{ position: 'absolute', top: '70px', left: 0, right: 0, bottom: 0, overflow: 'hidden' }}>
         
-        <div style={{ position: 'absolute', left: `${CENTER_X}%`, top: `${CENTER_Y}%`, transform: 'translate(-50%, -50%)', fontSize: '6rem', filter: `drop-shadow(0 0 ${coralHp / 5}px rgba(16,185,129,0.5))`, transition: 'filter 0.3s' }}>
+        <div 
+          className={`coral-sprite ${coralHp < 50 ? 'damaged' : ''}`}
+          style={{ 
+            position: 'absolute', 
+            left: `${CENTER_X}%`, 
+            top: `${CENTER_Y}%`, 
+            transform: 'translate(-50%, -50%)', 
+            fontSize: '6rem', 
+            filter: `drop-shadow(0 0 ${coralHp / 5}px rgba(16,185,129,0.5))`, 
+            transition: 'filter 0.3s',
+            animation: coralHp < 100 && coralHp % 10 !== 0 ? 'shake 0.4s ease-in-out' : 'none'
+          }}
+        >
           🪸
         </div>
 
@@ -375,6 +393,20 @@ export default function CoralDefenderGame() {
           </div>
         </div>
       )}
+      <style>{`
+        @keyframes shake {
+          0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+          25% { transform: translate(-52%, -50%) rotate(-2deg); }
+          75% { transform: translate(-48%, -50%) rotate(2deg); }
+        }
+        .damaged {
+          animation: damage-flash 0.5s infinite !important;
+        }
+        @keyframes damage-flash {
+          0%, 100% { opacity: 1; filter: drop-shadow(0 0 20px rgba(16,185,129,0.5)); }
+          50% { opacity: 0.6; filter: drop-shadow(0 0 30px rgba(239,68,68,0.8)) sepia(1) saturate(5) hue-rotate(-50deg); }
+        }
+      `}</style>
     </div>
   );
 }

@@ -71,16 +71,22 @@ export default function TurtleRunnerGame() {
     gameSpeedRef.current = BASE_GAME_SPEED;
     bgPosRef.current = 0;
     lastEntitiesLengthRef.current = 0;
+    lastFrameTime.current = 0;
     setEntitiesState([]);
     setGameState('playing');
   };
 
-  const updateGame = useCallback(() => {
+  const lastFrameTime = useRef<number>(0);
+
+  const updateGame = useCallback((timestamp: number) => {
     if (gameStateRef.current !== 'playing') return;
 
-    turtleVyRef.current += GRAVITY;
+    const delta = lastFrameTime.current ? Math.min((timestamp - lastFrameTime.current) / 16.667, 3) : 1;
+    lastFrameTime.current = timestamp;
+
+    turtleVyRef.current += GRAVITY * delta;
     if (turtleVyRef.current > MAX_FALL_SPEED) turtleVyRef.current = MAX_FALL_SPEED;
-    turtleYRef.current += turtleVyRef.current;
+    turtleYRef.current += turtleVyRef.current * delta;
 
     if (turtleYRef.current > 95) {
       endGame();
@@ -113,7 +119,7 @@ export default function TurtleRunnerGame() {
 
     let newScore = scoreRef.current;
     
-    entitiesRef.current = entitiesRef.current.map(ent => ({ ...ent, x: ent.x - gameSpeedRef.current })).filter(ent => {
+    entitiesRef.current = entitiesRef.current.map(ent => ({ ...ent, x: ent.x - gameSpeedRef.current * delta })).filter(ent => {
       if (ent.x < -10) return false;
 
       const dx = Math.abs(ent.x - TURTLE_X);
@@ -142,7 +148,7 @@ export default function TurtleRunnerGame() {
       setScore(newScore);
     }
 
-    bgPosRef.current -= gameSpeedRef.current * 0.5;
+    bgPosRef.current -= gameSpeedRef.current * 0.5 * delta;
 
     if (entitiesRef.current.length !== lastEntitiesLengthRef.current) {
       lastEntitiesLengthRef.current = entitiesRef.current.length;

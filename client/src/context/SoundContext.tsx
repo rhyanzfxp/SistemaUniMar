@@ -72,6 +72,7 @@ interface SoundContextType {
   playWrong: () => void;
   playFanfare: () => void;
   playTick: () => void;
+  recordUserInteraction: () => void;
 }
 
 const SoundContext = createContext<SoundContextType>({
@@ -81,23 +82,33 @@ const SoundContext = createContext<SoundContextType>({
   playWrong: () => {},
   playFanfare: () => {},
   playTick: () => {},
+  recordUserInteraction: () => {},
 });
 
 export function SoundProvider({ children }: { children: ReactNode }) {
   const [muted, setMuted] = useState(false);
   const ctxRef = useRef<AudioContext | null>(null);
+  const userInteracted = useRef(false);
+
+  const recordUserInteraction = useCallback(() => {
+    userInteracted.current = true;
+    if (ctxRef.current?.state === 'suspended') {
+      ctxRef.current.resume();
+    }
+  }, []);
 
   const getCtx = useCallback(() => {
     if (!ctxRef.current) ctxRef.current = createAudioCtx();
-
-    if (ctxRef.current?.state === 'suspended') ctxRef.current.resume();
     return ctxRef.current;
   }, []);
 
   const play = useCallback((fn: (ctx: AudioContext) => void) => {
-    if (muted) return;
+    if (muted || !userInteracted.current) return;
     const ctx = getCtx();
-    if (ctx) fn(ctx);
+    if (ctx) {
+      if (ctx.state === 'suspended') ctx.resume();
+      fn(ctx);
+    }
   }, [muted, getCtx]);
 
   const playCorrect = useCallback(() => play(soundCorrect), [play]);
@@ -108,7 +119,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const toggleMute = useCallback(() => setMuted((m) => !m), []);
 
   return (
-    <SoundContext.Provider value={{ muted, toggleMute, playCorrect, playWrong, playFanfare, playTick }}>
+    <SoundContext.Provider value={{ muted, toggleMute, playCorrect, playWrong, playFanfare, playTick, recordUserInteraction }}>
       {children}
     </SoundContext.Provider>
   );

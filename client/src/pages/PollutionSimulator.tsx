@@ -19,40 +19,40 @@ const DECISIONS: Decision[] = [
     id: 1,
     scenario: 'Você foi ao supermercado fazer compras para a semana.',
     options: [
-      { text: 'Levo minha própria ecobag', isEcoFriendly: true, consequenceText: 'Menos plástico no mundo!', pollutionImpact: 0 },
-      { text: 'Uso sacolas plásticas do mercado', isEcoFriendly: false, consequenceText: 'Muitas dessas sacolas vão parar no oceano.', pollutionImpact: 20 },
+      { text: 'Levo minha própria ecobag', isEcoFriendly: true, consequenceText: 'Menos plástico no mundo! Fonte: PNUMA – Relatório sobre Plásticos (2021).', pollutionImpact: 0 },
+      { text: 'Uso sacolas plásticas do mercado', isEcoFriendly: false, consequenceText: 'Muitas dessas sacolas vão parar no oceano. Fonte: PNUMA – Relatório sobre Plásticos (2021).', pollutionImpact: 20 },
     ],
   },
   {
     id: 2,
     scenario: 'Sua garrafa de água acabou durante o passeio na praia.',
     options: [
-      { text: 'Compro outra garrafa plástica', isEcoFriendly: false, consequenceText: 'Microplásticos são engolidos por peixes.', pollutionImpact: 20 },
-      { text: 'Uso minha garrafa reutilizável no bebedouro', isEcoFriendly: true, consequenceText: 'Zero lixo gerado, ótima escolha!', pollutionImpact: 0 },
+      { text: 'Compro outra garrafa plástica', isEcoFriendly: false, consequenceText: 'Microplásticos são engolidos por peixes. Fonte: Nature – Microplastics in aquatic environments.', pollutionImpact: 20 },
+      { text: 'Uso minha garrafa reutilizável no bebedouro', isEcoFriendly: true, consequenceText: 'Zero lixo gerado, ótima escolha! Fonte: Nature – Microplastics in aquatic environments.', pollutionImpact: 0 },
     ],
   },
   {
     id: 3,
     scenario: 'Sobrou óleo de fritura do almoço. O que você faz?',
     options: [
-      { text: 'Guardo em uma garrafa para reciclagem', isEcoFriendly: true, consequenceText: 'Você evitou a contaminação de milhares de litros de água.', pollutionImpact: 0 },
-      { text: 'Jogo direto na pia', isEcoFriendly: false, consequenceText: 'O óleo contamina rios e chega ao mar, sufocando a vida marinha.', pollutionImpact: 30 },
+      { text: 'Guardo em uma garrafa para reciclagem', isEcoFriendly: true, consequenceText: 'Você evitou a contaminação de milhares de litros de água. Fonte: SABESP – Programa de Reciclagem de Óleo.', pollutionImpact: 0 },
+      { text: 'Jogo direto na pia', isEcoFriendly: false, consequenceText: 'O óleo contamina rios e chega ao mar, sufocando a vida marinha. Fonte: SABESP – Programa de Reciclagem de Óleo.', pollutionImpact: 30 },
     ],
   },
   {
     id: 4,
     scenario: 'Fim de tarde na praia, hora de ir embora e você tem lixo do lanche.',
     options: [
-      { text: 'Deixo na areia, a maré leva', isEcoFriendly: false, consequenceText: 'Tartarugas confundem lixo com comida e morrem.', pollutionImpact: 20 },
-      { text: 'Levo comigo até achar uma lixeira', isEcoFriendly: true, consequenceText: 'A praia continua limpa para todos.', pollutionImpact: 0 },
+      { text: 'Deixo na areia, a maré leva', isEcoFriendly: false, consequenceText: 'Tartarugas confundem lixo com comida e morrem. Fonte: Projeto TAMAR / ICMBio.', pollutionImpact: 20 },
+      { text: 'Levo comigo até achar uma lixeira', isEcoFriendly: true, consequenceText: 'A praia continua limpa para todos. Fonte: Projeto TAMAR / ICMBio.', pollutionImpact: 0 },
     ],
   },
   {
     id: 5,
     scenario: 'Na hora de comprar produtos de limpeza:',
     options: [
-      { text: 'Busco produtos biodegradáveis', isEcoFriendly: true, consequenceText: 'Menos produtos químicos tóxicos no esgoto.', pollutionImpact: 0 },
-      { text: 'Compro os tradicionais, mais baratos', isEcoFriendly: false, consequenceText: 'Químicos fortes causam eutrofização da água (morte por algas).', pollutionImpact: 10 },
+      { text: 'Busco produtos biodegradáveis', isEcoFriendly: true, consequenceText: 'Menos produtos químicos tóxicos no esgoto. Fonte: CONAMA / Ministério do Meio Ambiente.', pollutionImpact: 0 },
+      { text: 'Compro os tradicionais, mais baratos', isEcoFriendly: false, consequenceText: 'Químicos fortes causam eutrofização da água (morte por algas). Fonte: CONAMA / Ministério do Meio Ambiente.', pollutionImpact: 10 },
     ],
   },
 ];
@@ -229,16 +229,31 @@ export default function PollutionSimulator() {
             {feedback && (
               <div style={{
                 marginTop: '24px',
-                padding: '16px',
+                padding: '20px',
                 borderRadius: '12px',
-                background: feedback.isGood ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.2)',
-                border: `1px solid ${feedback.isGood ? 'rgba(16,185,129,0.5)' : 'rgba(239,68,68,0.5)'}`,
+                background: feedback.isGood ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)',
+                border: `1px solid ${feedback.isGood ? 'rgba(16,185,129,0.4)' : 'rgba(239,68,68,0.4)'}`,
                 animation: 'slide-up 0.3s ease-out'
               }}>
                 <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, margin: '0 0 8px', fontSize: '1.1rem', color: feedback.isGood ? '#10B981' : '#EF4444' }}>
                   {feedback.isGood ? 'Ótima Escolha! 🌿' : 'Escolha Prejudicial! ⚠️'}
                 </p>
-                <p style={{ margin: 0, color: '#E2E8F0', fontSize: '0.95rem' }}>{feedback.text}</p>
+                {(() => {
+                  const parts = (feedback.text || '').split('Fonte:');
+                  const mainText = parts[0].trim();
+                  const source = parts[1] ? parts[1].trim() : null;
+                  return (
+                    <>
+                      <p style={{ margin: 0, color: '#E2E8F0', fontSize: '0.95rem', lineHeight: 1.6 }}>{mainText}</p>
+                      {source && (
+                        <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', borderRadius: '8px', background: 'rgba(0,212,255,0.1)', border: '1px solid rgba(0,212,255,0.2)' }}>
+                          <span style={{ fontSize: '0.75rem', color: '#00D4FF', fontWeight: 800, fontFamily: 'Outfit, sans-serif', textTransform: 'uppercase', letterSpacing: '0.05em' }}>📚 Fonte:</span>
+                          <span style={{ color: '#94A3B8', fontSize: '0.85rem' }}>{source}</span>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
             )}
           </div>
