@@ -48,7 +48,7 @@ export default function GamePlay() {
         });
         setTimeLeft(g.timeLimit);
         
-        if (q.length > 0) {
+        if (q && q.length > 0 && q[0]) {
           const opts = q[0].options.map((text, i) => ({ text, originalIndex: i }));
           setShuffledOptions([...opts].sort(() => Math.random() - 0.5));
         }
@@ -157,8 +157,10 @@ export default function GamePlay() {
       setTimeLeft(game.timeLimit);
 
       const nextQ = session.questions[nextIndex];
-      const opts = nextQ.options.map((text, i) => ({ text, originalIndex: i }));
-      setShuffledOptions([...opts].sort(() => Math.random() - 0.5));
+      if (nextQ && nextQ.options) {
+        const opts = nextQ.options.map((text, i) => ({ text, originalIndex: i }));
+        setShuffledOptions([...opts].sort(() => Math.random() - 0.5));
+      }
     }
   };
 
