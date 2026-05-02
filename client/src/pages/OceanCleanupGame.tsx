@@ -61,8 +61,13 @@ export default function OceanCleanupGame() {
     });
   }, [playWrong, endGame]);
 
-  const updateGame = useCallback(() => {
+  const lastFrameTimeRef = useRef<number>(0);
+
+  const updateGame = useCallback((timestamp: number) => {
     if (gameStateRef.current !== 'playing') return;
+
+    const delta = lastFrameTimeRef.current ? Math.min((timestamp - lastFrameTimeRef.current) / 16.667, 3) : 1;
+    lastFrameTimeRef.current = timestamp;
 
     const now = Date.now();
     const currentScore = scoreRef.current;
@@ -93,7 +98,7 @@ export default function OceanCleanupGame() {
     }
 
     let livesLost = 0;
-    itemsRef.current = itemsRef.current.map(item => ({ ...item, y: item.y + item.speed })).filter(item => {
+    itemsRef.current = itemsRef.current.map(item => ({ ...item, y: item.y + item.speed * delta })).filter(item => {
       const el = document.getElementById(`item-${item.id}`);
       if (el) {
         el.style.top = `${item.y}%`;
@@ -150,6 +155,7 @@ export default function OceanCleanupGame() {
     setLives(3);
     itemsRef.current = [];
     lastItemsLengthRef.current = 0;
+    lastFrameTimeRef.current = 0;
     setItemsState([]);
     setGameState('playing');
   };
