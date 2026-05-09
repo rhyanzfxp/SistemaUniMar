@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw, Clock, ArrowUp, ArrowDown, ArrowLeft as ArrowLeftIcon, ArrowRight } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
+import EmojiImg from '../components/EmojiImg';
 
 const INITIAL_MAZE = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -111,11 +112,11 @@ export default function MangroveMazeGame() {
     setGameState('playing');
   };
 
-  const getCellContent = (val: number, x: number, y: number) => {
-    if (playerPos.x === x && playerPos.y === y) return '🦀';
-    if (val === 1) return '🌿';
-    if (val === 2) return '🦀';
-    if (val === 3) return '🏁';
+  const getCellContent = (val: number, x: number, y: number): React.ReactNode => {
+    if (playerPos.x === x && playerPos.y === y) return <EmojiImg emoji="🦀" size="1.1rem" />;
+    if (val === 1) return <EmojiImg emoji="🌿" size="1.1rem" />;
+    if (val === 2) return <EmojiImg emoji="🦀" size="1.1rem" />;
+    if (val === 3) return <EmojiImg emoji="🏁" size="1.1rem" />;
     return '';
   };
 
@@ -140,7 +141,7 @@ export default function MangroveMazeGame() {
             <Clock size={18} /> {timeLeft}s
           </div>
           <div style={{ background: 'rgba(0,0,0,0.4)', padding: '6px 16px', borderRadius: '99px', display: 'flex', gap: '8px', alignItems: 'center', color: '#FCD34D', fontWeight: 800 }}>
-            🦀 {babiesCollected}/{TOTAL_BABIES}
+            <EmojiImg emoji="🦀" size="1.1rem" /> {babiesCollected}/{TOTAL_BABIES}
           </div>
         </div>
       </div>
@@ -198,17 +199,19 @@ export default function MangroveMazeGame() {
       {gameState === 'start' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '500px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🦀</div>
+            <EmojiImg emoji="🦀" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#10B981', marginBottom: '16px' }}>Resgate no Mangue</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '24px', lineHeight: 1.6 }}>
               Os filhotes de caranguejo estão perdidos nas raízes do manguezal!<br/><br/>
-              🦀 Use as <strong>Setas</strong> ou <strong>WASD</strong> para mover.<br/>
-              🦀 Resgate os <strong>4 filhotes</strong> perdidos.<br/>
-              🏁 Chegue à <strong>saída</strong> antes que o tempo acabe.
+              <EmojiImg emoji="🦀" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> <strong>Objetivo:</strong> Resgate os 4 filhotes e chegue à saída.<br/>
+              <EmojiImg emoji="🌊" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> <strong>Cuidado:</strong> A maré está subindo! Você tem 45 segundos.<br/>
+              <EmojiImg emoji="🎮" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Use as <strong>setas do teclado</strong> ou os <strong>botões na tela</strong> para se mover.
             </p>
 
             <div style={{ background: 'rgba(16,185,129,0.1)', padding: '16px', borderRadius: '12px', marginBottom: '24px', border: '1px solid rgba(16,185,129,0.2)', textAlign: 'left' }}>
-              <p style={{ margin: 0, fontSize: '0.85rem', color: '#10B981', fontWeight: 700 }}>💡 Você sabia?</p>
+              <p style={{ margin: 0, fontSize: '0.85rem', color: '#10B981', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <EmojiImg emoji="💡" size="1rem" /> Você sabia?
+              </p>
               <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: '#94A3B8', lineHeight: 1.4 }}>
                 Os manguezais do Rio Cocó e Rio Ceará são berçários fundamentais. Praticamente todos os camarões e caranguejos que consumimos em Fortaleza passaram parte da vida protegidos por essas raízes!
               </p>
@@ -224,7 +227,7 @@ export default function MangroveMazeGame() {
       {gameState === 'gameover' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>⏱️</div>
+            <EmojiImg emoji="⏱️" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#EF4444', marginBottom: '8px' }}>Tempo Esgotado</h1>
             <p style={{ color: '#94A3B8', marginBottom: '32px' }}>A maré subiu e você não conseguiu resgatar todos a tempo.</p>
             
@@ -245,7 +248,7 @@ export default function MangroveMazeGame() {
       {gameState === 'victory' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🎉</div>
+            <EmojiImg emoji="🎉" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#FCD34D', marginBottom: '8px' }}>Resgate Concluído!</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '32px' }}>Você salvou os filhotes e encontrou a saída do manguezal. Excelente trabalho de preservação!</p>
             

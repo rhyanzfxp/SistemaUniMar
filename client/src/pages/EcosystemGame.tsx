@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
+import EmojiImg from '../components/EmojiImg';
 
 interface Species {
   id: string;
@@ -209,7 +210,9 @@ export default function EcosystemGame() {
     const grade = getGrade();
     return (
       <div style={{ padding: 'clamp(32px, 8vw, 60px) 16px', maxWidth: '560px', margin: '0 auto', textAlign: 'center' }}>
-        <div style={{ fontSize: 'clamp(3.5rem, 12vw, 5rem)', marginBottom: '16px', animation: 'scale-in 0.5s ease-out' }}>{grade.emoji}</div>
+        <div style={{ marginBottom: '16px', animation: 'scale-in 0.5s ease-out' }}>
+          <EmojiImg emoji={grade.emoji} size="5rem" style={{ margin: '0 auto' }} />
+        </div>
         <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: 'clamp(1.4rem, 5vw, 2rem)', color: grade.color, marginBottom: '8px' }}>{grade.label}</h1>
         <p style={{ color: '#64748B', marginBottom: '32px', fontSize: '0.9rem' }}>Ecossistema do Manguezal · Resultado</p>
 
@@ -253,7 +256,7 @@ export default function EcosystemGame() {
           </button>
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ fontSize: '1.4rem' }}>🌿</span>
+          <EmojiImg emoji="🌿" size="1.4rem" />
           <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: '#10B981', fontSize: 'clamp(0.85rem, 3vw, 1rem)' }}>Ecossistema do Manguezal</span>
         </div>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -273,7 +276,7 @@ export default function EcosystemGame() {
       </div>
 
       <div className="glass-card" style={{ padding: '12px 18px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <span style={{ fontSize: '1.2rem' }}>💡</span>
+        <EmojiImg emoji="💡" size="1.2rem" />
         <p style={{ color: '#94A3B8', fontSize: '0.82rem', margin: 0, lineHeight: 1.5 }}>
           <strong style={{ color: '#E2E8F0' }}>Arraste</strong> cada espécie para a zona correta do manguezal.
           Em telas touch, pressione e arraste.
@@ -293,7 +296,11 @@ export default function EcosystemGame() {
           }}
         >
           <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: feedback.correct ? '#10B981' : '#EF4444', margin: '0 0 4px', fontSize: '0.9rem' }}>
-            {feedback.correct ? '✅ Correto!' : '❌ Zona errada!'}
+            {feedback.correct ? (
+              <><EmojiImg emoji="✅" size="1rem" /> Correto!</>
+            ) : (
+              <><EmojiImg emoji="❌" size="1rem" /> Zona errada!</>
+            )}
           </p>
           <p style={{ color: '#94A3B8', fontSize: '0.8rem', margin: 0 }}>{feedback.hint}</p>
         </div>
@@ -325,7 +332,7 @@ export default function EcosystemGame() {
             >
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-                <span style={{ fontSize: '1.3rem' }}>{zone.icon}</span>
+                <EmojiImg emoji={zone.icon} size="1.3rem" />
                 <div>
                   <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: zone.color, margin: '0 0 2px', fontSize: '0.88rem' }}>{zone.label}</p>
                   <p style={{ color: '#475569', fontSize: '0.72rem', margin: 0 }}>{zone.description}</p>
@@ -349,9 +356,9 @@ export default function EcosystemGame() {
                         position: 'relative',
                       }}
                     >
-                      {sp.emoji}
+                      <EmojiImg emoji={sp.emoji} size="1.4rem" />
                       <span style={{ position: 'absolute', bottom: '-2px', right: '-2px', fontSize: '0.6rem' }}>
-                        {correct ? '✅' : '❌'}
+                        <EmojiImg emoji={correct ? '✅' : '❌'} size="0.7rem" />
                       </span>
                     </div>
                   );
@@ -370,7 +377,7 @@ export default function EcosystemGame() {
 
       <div className="glass-card" style={{ padding: '18px' }}>
         <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: '#94A3B8', fontSize: '0.8rem', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          🐾 Espécies — arraste para a zona correta
+          <EmojiImg emoji="🐾" size="1rem" /> Espécies — arraste para a zona correta
         </p>
         {remaining.length === 0 ? (
           <p style={{ color: '#475569', fontSize: '0.88rem', textAlign: 'center', padding: '16px 0' }}>Todas as espécies foram colocadas!</p>
@@ -401,7 +408,7 @@ export default function EcosystemGame() {
                   touchAction: 'none',
                 }}
               >
-                <span style={{ fontSize: '1.3rem' }}>{species.emoji}</span>
+                <EmojiImg emoji={species.emoji} size="1.3rem" />
                 {species.name}
               </div>
             ))}

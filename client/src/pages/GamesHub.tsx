@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Gamepad2, Clock, Zap, ChevronRight, Loader } from 'lucide-react';
 import { gameService } from '../services/api';
 import type { Game } from '../models/types';
+import EmojiImg from '../components/EmojiImg';
 
 const difficultyLabels: Record<string, string> = { 
   fauna: 'Média', 
@@ -46,7 +47,7 @@ export default function GamesHub() {
   if (error) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh', flexDirection: 'column', gap: '16px', padding: '24px' }}>
-        <div style={{ fontSize: '3rem' }}>🌊</div>
+        <EmojiImg emoji="🌊" size="3rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
         <p style={{ color: '#EF4444', fontFamily: 'Outfit, sans-serif', fontSize: '1.1rem', textAlign: 'center' }}>{error}</p>
         <p style={{ color: '#475569', fontSize: '0.875rem', textAlign: 'center' }}>
           Execute: <code style={{ color: '#00D4FF' }}>cd server && npm run dev</code>
@@ -115,9 +116,7 @@ export default function GamesHub() {
                   }}
                 />
 
-                <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>
-                  {game.icon}
-                </div>
+                <EmojiImg emoji={game.icon} size="3.5rem" style={{ marginBottom: '20px', display: 'block' }} />
 
                 <span
                   style={{
@@ -209,7 +208,7 @@ export default function GamesHub() {
               style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }} />
-              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🌿</div>
+              <EmojiImg emoji="🌿" size="3.5rem" style={{ marginBottom: '20px', display: 'block' }} />
               <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.4)', color: '#10B981', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Ecossistema · Drag & Drop</span>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#10B981', margin: '0 0 12px' }}>Ecossistema do Manguezal</h2>
               <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
@@ -231,7 +230,7 @@ export default function GamesHub() {
               style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }} />
-              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🛢️</div>
+              <EmojiImg emoji="🛢️" size="3.5rem" style={{ marginBottom: '20px', display: 'block' }} />
               <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.4)', color: '#F59E0B', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Poluição · Simulador</span>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#F59E0B', margin: '0 0 12px' }}>Simulador de Poluição Visual</h2>
               <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
@@ -253,7 +252,7 @@ export default function GamesHub() {
               style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(0,212,255,0.1)', border: '1px solid rgba(0,212,255,0.2)' }} />
-              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🧹</div>
+              <EmojiImg emoji="🧹" size="3.5rem" style={{ marginBottom: '20px', display: 'block' }} />
               <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(0,212,255,0.2)', border: '1px solid rgba(0,212,255,0.4)', color: '#00D4FF', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Ação · Clicker</span>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#00D4FF', margin: '0 0 12px' }}>Limpeza Oceânica</h2>
               <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
@@ -275,7 +274,7 @@ export default function GamesHub() {
               style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }} />
-              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🐢</div>
+              <EmojiImg emoji="🐢" size="3.5rem" style={{ marginBottom: '20px', display: 'block' }} />
               <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.4)', color: '#10B981', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Runner · Morte Súbita</span>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#10B981', margin: '0 0 12px' }}>Mergulho da Tartaruga</h2>
               <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
@@ -297,7 +296,7 @@ export default function GamesHub() {
               style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }} />
-              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🪸</div>
+              <EmojiImg emoji="🪸" size="3.5rem" style={{ marginBottom: '20px', display: 'block' }} />
               <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.4)', color: '#10B981', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Estratégia · Tower Defense</span>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#10B981', margin: '0 0 12px' }}>Defensor dos Corais</h2>
               <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
@@ -319,7 +318,7 @@ export default function GamesHub() {
               style={{ padding: 'clamp(24px, 5vw, 36px)', position: 'relative', overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)' }} />
-              <div style={{ fontSize: '3.5rem', marginBottom: '20px', lineHeight: 1 }}>🦀</div>
+              <EmojiImg emoji="🦀" size="3.5rem" style={{ marginBottom: '20px', display: 'block' }} />
               <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '99px', background: 'rgba(245,158,11,0.2)', border: '1px solid rgba(245,158,11,0.4)', color: '#F59E0B', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '10px', fontFamily: 'Outfit, sans-serif' }}>Labirinto · Puzzle</span>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', color: '#F59E0B', margin: '0 0 12px' }}>Resgate no Mangue</h2>
               <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.7, margin: '0 0 24px' }}>
@@ -348,7 +347,7 @@ export default function GamesHub() {
           flexWrap: 'wrap',
         }}
       >
-        <div style={{ fontSize: '2rem' }}>💡</div>
+        <EmojiImg emoji="💡" size="2rem" />
         <div>
           <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, margin: '0 0 4px', color: '#E2E8F0' }}>
             Como funciona?

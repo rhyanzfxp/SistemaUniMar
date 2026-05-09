@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp, BookOpen, Gamepad2, Loader, ChevronRight } from 'lucide-react';
 import { studyService } from '../services/api';
 import type { StudyCard } from '../models/study.types';
+import EmojiImg from '../components/EmojiImg';
 
 const categories = [
   { key: 'all', label: 'Todos', emoji: '🌊' },
@@ -63,7 +64,7 @@ function KnowledgeCard({ card }: { card: StudyCard }) {
             flexShrink: 0,
           }}
         >
-          {card.emoji}
+          <EmojiImg emoji={card.emoji} size="2rem" />
         </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -157,7 +158,7 @@ function KnowledgeCard({ card }: { card: StudyCard }) {
                   gap: '10px',
                 }}
               >
-                <span style={{ fontSize: '1.1rem', lineHeight: 1, flexShrink: 0 }}>{fact.icon}</span>
+                <EmojiImg emoji={fact.icon} size="1.1rem" style={{ flexShrink: 0 }} />
                 <div>
                   <p style={{ color: '#475569', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 2px', fontFamily: 'Outfit, sans-serif', fontWeight: 600 }}>
                     {fact.label}
@@ -181,7 +182,7 @@ function KnowledgeCard({ card }: { card: StudyCard }) {
               gap: '12px',
             }}
           >
-            <span style={{ fontSize: '1.3rem', flexShrink: 0 }}>💡</span>
+            <EmojiImg emoji="💡" size="1.3rem" style={{ flexShrink: 0 }} />
             <div>
               <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: meta.color, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 6px' }}>
                 Você sabia?
@@ -330,7 +331,7 @@ export default function Learn() {
               gap: '6px',
             }}
           >
-            <span>{cat.emoji}</span>
+            <EmojiImg emoji={cat.emoji} size="1.1rem" />
             {cat.label}
             <span
               style={{
@@ -434,7 +435,7 @@ export default function Learn() {
 
       {!loading && filtered.length > 0 && (
         <div style={{ textAlign: 'center', marginTop: '60px', padding: '48px 24px', background: 'rgba(255,255,255,0.02)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🎓</div>
+          <EmojiImg emoji="🎓" size="3rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
           <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.5rem', margin: '0 0 10px' }}>
             Pronto para o desafio?
           </h2>

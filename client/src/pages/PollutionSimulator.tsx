@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw, Droplet, Skull } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
+import EmojiImg from '../components/EmojiImg';
 
 interface Decision {
   id: number;
@@ -127,17 +128,17 @@ export default function PollutionSimulator() {
       {}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none', overflow: 'hidden' }}>
         <div style={{ opacity: 1 - (pollutionLevel / 100), transition: 'opacity 1.5s' }}>
-          <div className="float-anim" style={{ position: 'absolute', top: '20%', left: '10%', fontSize: '3rem', animationDelay: '0s' }}>🐠</div>
-          <div className="float-anim" style={{ position: 'absolute', top: '50%', right: '15%', fontSize: '4rem', animationDelay: '1s', animationDirection: 'reverse' }}>🐢</div>
-          <div className="float-anim" style={{ position: 'absolute', bottom: '15%', left: '30%', fontSize: '2.5rem', animationDelay: '2s' }}>🐡</div>
-          <div style={{ position: 'absolute', bottom: '0', right: '10%', fontSize: '5rem', filter: 'drop-shadow(0 0 10px rgba(0,255,0,0.5))' }}>🪸</div>
+          <div className="float-anim" style={{ position: 'absolute', top: '20%', left: '10%', fontSize: '3rem', animationDelay: '0s' }}><EmojiImg emoji="🐠" size="3rem" /></div>
+          <div className="float-anim" style={{ position: 'absolute', top: '50%', right: '15%', fontSize: '4rem', animationDelay: '1s', animationDirection: 'reverse' }}><EmojiImg emoji="🐢" size="4rem" /></div>
+          <div className="float-anim" style={{ position: 'absolute', bottom: '15%', left: '30%', fontSize: '2.5rem', animationDelay: '2s' }}><EmojiImg emoji="🐡" size="2.5rem" /></div>
+          <div style={{ position: 'absolute', bottom: '0', right: '10%', fontSize: '5rem', filter: 'drop-shadow(0 0 10px rgba(0,255,0,0.5))' }}><EmojiImg emoji="🪸" size="5rem" /></div>
         </div>
 
         <div style={{ opacity: pollutionLevel / 100, transition: 'opacity 1.5s' }}>
-          <div className="float-anim" style={{ position: 'absolute', top: '15%', right: '20%', fontSize: '3rem', animationDelay: '0.5s' }}>🥤</div>
-          <div className="float-anim" style={{ position: 'absolute', top: '40%', left: '25%', fontSize: '3.5rem', animationDelay: '1.5s', animationDirection: 'reverse' }}>🗑️</div>
-          <div className="float-anim" style={{ position: 'absolute', bottom: '30%', right: '35%', fontSize: '4rem', animationDelay: '0.2s' }}>🛢️</div>
-          <div className="float-anim" style={{ position: 'absolute', bottom: '10%', left: '15%', fontSize: '2.5rem', animationDelay: '1s' }}>🥫</div>
+          <div className="float-anim" style={{ position: 'absolute', top: '15%', right: '20%', fontSize: '3rem', animationDelay: '0.5s' }}><EmojiImg emoji="🥤" size="3rem" /></div>
+          <div className="float-anim" style={{ position: 'absolute', top: '40%', left: '25%', fontSize: '3.5rem', animationDelay: '1.5s', animationDirection: 'reverse' }}><EmojiImg emoji="🗑️" size="3.5rem" /></div>
+          <div className="float-anim" style={{ position: 'absolute', bottom: '30%', right: '35%', fontSize: '4rem', animationDelay: '0.2s' }}><EmojiImg emoji="🛢️" size="4rem" /></div>
+          <div className="float-anim" style={{ position: 'absolute', bottom: '10%', left: '15%', fontSize: '2.5rem', animationDelay: '1s' }}><EmojiImg emoji="🥫" size="2.5rem" /></div>
         </div>
         
         {}
@@ -158,7 +159,7 @@ export default function PollutionSimulator() {
             </button>
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '1.4rem' }}>{pollutionLevel < 50 ? '🌊' : '🛢️'}</span>
+            <EmojiImg emoji={pollutionLevel < 50 ? '🌊' : '🛢️'} size="1.4rem" />
             <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: '#FFF', fontSize: 'clamp(0.85rem, 3vw, 1rem)', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>Simulador de Poluição</span>
           </div>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -235,8 +236,12 @@ export default function PollutionSimulator() {
                 border: `1px solid ${feedback.isGood ? 'rgba(16,185,129,0.4)' : 'rgba(239,68,68,0.4)'}`,
                 animation: 'slide-up 0.3s ease-out'
               }}>
-                <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, margin: '0 0 8px', fontSize: '1.1rem', color: feedback.isGood ? '#10B981' : '#EF4444' }}>
-                  {feedback.isGood ? 'Ótima Escolha! 🌿' : 'Escolha Prejudicial! ⚠️'}
+                <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, margin: '0 0 8px', fontSize: '1.1rem', color: feedback.isGood ? '#10B981' : '#EF4444', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  {feedback.isGood ? (
+                    <>Ótima Escolha! <EmojiImg emoji="🌿" size="1.1rem" /></>
+                  ) : (
+                    <>Escolha Prejudicial! <EmojiImg emoji="⚠️" size="1.1rem" /></>
+                  )}
                 </p>
                 {(() => {
                   const parts = (feedback.text || '').split('Fonte:');
@@ -259,8 +264,12 @@ export default function PollutionSimulator() {
           </div>
         ) : (
           <div className="glass-card" style={{ padding: 'clamp(32px, 5vw, 48px)', textAlign: 'center', background: 'rgba(15,23,42,0.7)', border: '1px solid rgba(255,255,255,0.2)' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px', animation: 'scale-in 0.5s ease-out' }}>
-              {pollutionLevel < 30 ? '🌊' : pollutionLevel < 70 ? '🐢' : '🛢️'}
+            <div style={{ marginBottom: '16px', animation: 'scale-in 0.5s ease-out' }}>
+              <EmojiImg 
+                emoji={pollutionLevel < 30 ? '🌊' : pollutionLevel < 70 ? '🐢' : '🛢️'} 
+                size="4rem" 
+                style={{ margin: '0 auto' }}
+              />
             </div>
             
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', color: '#FFF', margin: '0 0 16px' }}>

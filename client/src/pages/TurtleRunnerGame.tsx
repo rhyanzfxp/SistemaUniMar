@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
+import EmojiImg from '../components/EmojiImg';
 
 type EntityType = 'trash' | 'jellyfish';
 
@@ -273,7 +274,7 @@ export default function TurtleRunnerGame() {
             filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))'
           }}
         >
-          🐢
+          <EmojiImg emoji="🐢" size="clamp(2.5rem, 5vw, 3.5rem)" />
         </div>
 
         {}
@@ -292,7 +293,10 @@ export default function TurtleRunnerGame() {
               willChange: 'left, top',
             }}
           >
-            {ent.emoji}
+            <EmojiImg
+              emoji={ent.emoji}
+              size={ent.type === 'jellyfish' ? 'clamp(2rem, 4vw, 3rem)' : 'clamp(2.5rem, 5vw, 3.5rem)'}
+            />
           </div>
         ))}
       </div>
@@ -301,14 +305,14 @@ export default function TurtleRunnerGame() {
       {gameState === 'start' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.5)', backdropFilter: 'blur(4px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '500px', textAlign: 'center', margin: '20px', pointerEvents: 'auto' }} onMouseDown={(e) => e.stopPropagation()}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🐢</div>
+            <EmojiImg emoji="🐢" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#10B981', marginBottom: '16px' }}>Mergulho da Tartaruga</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '24px', lineHeight: 1.6 }}>
               O oceano é uma pista de obstáculos!<br/><br/>
-              🎮 Pressione <strong>Espaço</strong> ou <strong>Clique na tela</strong> para nadar para cima.<br/>
-              🪼 Coma as <strong>águas-vivas</strong> para ganhar 5 pontos.<br/>
-              ⚠️ <strong>Morte Súbita:</strong> Desvie do lixo! Um toque e é Game Over.<br/>
-              🏆 Alcance <strong>100 pontos</strong> para vencer!
+              <EmojiImg emoji="🎮" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Pressione <strong>Espaço</strong> ou <strong>Clique na tela</strong> para nadar para cima.<br/>
+              <EmojiImg emoji="🪼" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Coma as <strong>águas-vivas</strong> para ganhar 5 pontos.<br/>
+              <EmojiImg emoji="⚠️" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> <strong>Morte Súbita:</strong> Desvie do lixo! Um toque e é Game Over.<br/>
+              <EmojiImg emoji="🏆" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Alcance <strong>100 pontos</strong> para vencer!
             </p>
             <button className="btn-primary" onClick={(e) => { e.stopPropagation(); jump(); }} style={{ padding: '16px 32px', fontSize: '1.2rem', borderRadius: '12px', width: '100%', background: 'linear-gradient(135deg, #10B981, #059669)' }}>
               Nadar Agora!
@@ -320,7 +324,7 @@ export default function TurtleRunnerGame() {
       {gameState === 'gameover' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(239,68,68,0.2)', backdropFilter: 'blur(8px)', zIndex: 20, animation: 'fade-in 0.3s ease-out' }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px', pointerEvents: 'auto' }} onMouseDown={(e) => e.stopPropagation()}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>💥</div>
+            <EmojiImg emoji="💥" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#EF4444', marginBottom: '8px' }}>Game Over</h1>
             <p style={{ color: '#94A3B8', marginBottom: '24px' }}>Você colidiu com o lixo oceânico ou bateu no fundo!</p>
             
@@ -346,7 +350,7 @@ export default function TurtleRunnerGame() {
       {gameState === 'victory' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(16,185,129,0.2)', backdropFilter: 'blur(8px)', zIndex: 20, animation: 'fade-in 0.3s ease-out' }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px', pointerEvents: 'auto' }} onMouseDown={(e) => e.stopPropagation()}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🏆</div>
+            <EmojiImg emoji="🏆" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#FCD34D', marginBottom: '8px' }}>Vitória!</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '24px' }}>Você sobreviveu ao oceano de lixo e comeu muitas águas-vivas!</p>
             
