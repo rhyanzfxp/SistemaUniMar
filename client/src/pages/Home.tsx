@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import EmojiImg from '../components/EmojiImg';
 import {
   Waves,
   Gamepad2,
@@ -359,15 +360,7 @@ export default function Home() {
                   className={`glass-card game-card ${f.glow}`}
                   style={{ padding: '32px', height: '100%' }}
                 >
-                  <div
-                    style={{
-                      fontSize: '3rem',
-                      marginBottom: '16px',
-                      lineHeight: 1,
-                    }}
-                  >
-                    {f.icon}
-                  </div>
+                  <EmojiImg emoji={f.icon} size="3rem" style={{ marginBottom: '16px', display: 'block' }} />
                   <h3
                     style={{
                       fontFamily: 'Outfit, sans-serif',

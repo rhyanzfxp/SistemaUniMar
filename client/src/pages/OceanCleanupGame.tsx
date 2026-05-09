@@ -2,6 +2,7 @@ import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw, Heart, Zap } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
+import EmojiImg from '../components/EmojiImg';
 
 type ItemType = 'trash' | 'fish';
 
@@ -334,7 +335,7 @@ export default function OceanCleanupGame() {
               willChange: 'top',
             }}
           >
-            {item.emoji}
+            <EmojiImg emoji={item.emoji} size="clamp(2.5rem, 6vw, 4rem)" />
           </div>
         ))}
       </div>
@@ -343,7 +344,7 @@ export default function OceanCleanupGame() {
       {gameState === 'start' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '520px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🧹</div>
+            <EmojiImg emoji="🧹" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#00D4FF', marginBottom: '16px' }}>Limpeza Oceânica</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '20px', lineHeight: 1.6 }}>
               Os animais marinhos estão em perigo! O lixo está caindo e você precisa agir rápido.<br /><br />
@@ -375,7 +376,7 @@ export default function OceanCleanupGame() {
       {gameState === 'gameover' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>💀</div>
+            <EmojiImg emoji="💀" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#EF4444', marginBottom: '8px' }}>Game Over</h1>
             <p style={{ color: '#94A3B8', marginBottom: '24px' }}>Você deixou muito lixo cair ou assustou os peixes.</p>
 
@@ -407,7 +408,7 @@ export default function OceanCleanupGame() {
       {gameState === 'victory' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🏆</div>
+            <EmojiImg emoji="🏆" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#FCD34D', marginBottom: '8px' }}>Vitória!</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '24px' }}>Você completou todos os níveis e o oceano está limpo graças a você!</p>
 

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw, Heart, Zap } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
+import EmojiImg from '../components/EmojiImg';
 
 type Enemy = { id: number; x: number; y: number; speed: number; hp: number; maxHp: number; emoji: string };
 type Projectile = { id: number; x: number; y: number; targetId: number; dx: number; dy: number };
@@ -261,7 +262,7 @@ export default function CoralDefenderGame() {
             animation: coralHp < 100 && coralHp % 10 !== 0 ? 'shake 0.4s ease-in-out' : 'none'
           }}
         >
-          🪸
+          <EmojiImg emoji="🪸" size="6rem" />
         </div>
 
         {TOWER_SPOTS.map((spot, i) => {
@@ -288,7 +289,7 @@ export default function CoralDefenderGame() {
                 zIndex: 5
               }}
             >
-              {tower && '🐟'}
+              {tower && <EmojiImg emoji="🐟" size="2rem" />}
             </div>
           );
         })}
@@ -305,7 +306,7 @@ export default function CoralDefenderGame() {
               zIndex: 6
             }}
           >
-            {e.emoji}
+            <EmojiImg emoji={e.emoji} size="2rem" />
             <div style={{ position: 'absolute', bottom: '-5px', left: '10%', right: '10%', height: '4px', background: 'rgba(0,0,0,0.5)', borderRadius: '2px' }}>
               <div style={{ height: '100%', width: `${(e.hp / e.maxHp) * 100}%`, background: '#EF4444', borderRadius: '2px' }} />
             </div>
@@ -334,7 +335,7 @@ export default function CoralDefenderGame() {
       {gameState === 'start' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '500px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🪸</div>
+            <EmojiImg emoji="🪸" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#10B981', marginBottom: '16px' }}>Defensor dos Corais</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '24px', lineHeight: 1.6 }}>
               O recife da <strong>Pedra da Risca do Meio</strong> (Fortaleza) está sendo atacado por espécies invasoras e poluição!<br/><br/>
@@ -360,7 +361,7 @@ export default function CoralDefenderGame() {
       {gameState === 'gameover' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🥀</div>
+            <EmojiImg emoji="🥀" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#EF4444', marginBottom: '8px' }}>Recife Destruído</h1>
             <p style={{ color: '#94A3B8', marginBottom: '24px' }}>Muitas ameaças conseguiram passar pelas suas defesas.</p>
             
@@ -386,7 +387,7 @@ export default function CoralDefenderGame() {
       {gameState === 'victory' && (
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(2,6,23,0.8)', backdropFilter: 'blur(8px)', zIndex: 20 }}>
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px' }}>
-            <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🏆</div>
+            <EmojiImg emoji="🏆" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#FCD34D', marginBottom: '8px' }}>Vitória!</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '24px' }}>Você protegeu o recife perfeitamente alcançando 500 pontos!</p>
             

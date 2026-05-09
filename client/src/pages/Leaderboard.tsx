@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Trophy, Medal, Award, Loader, RefreshCw } from 'lucide-react';
 import { scoreService, gameService } from '../services/api';
 import type { LeaderboardEntry, Game } from '../models/types';
+import EmojiImg from '../components/EmojiImg';
 
 const medalColors = ['#F59E0B', '#94A3B8', '#CD7C0C'];
 const MedalIcons = [Trophy, Medal, Award];
@@ -156,7 +157,7 @@ export default function Leaderboard() {
         </div>
       ) : entries.length === 0 ? (
         <div className="glass-card" style={{ padding: '60px', textAlign: 'center' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🌊</div>
+          <EmojiImg emoji="🌊" size="3rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
           <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: '#475569' }}>
             Ninguém jogou ainda. Seja o primeiro!
           </p>

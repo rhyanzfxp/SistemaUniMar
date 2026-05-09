@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import EmojiImg from '../components/EmojiImg';
 import { Clock, CheckCircle, XCircle, Trophy, ArrowLeft, Loader } from 'lucide-react';
 import { gameService, scoreService } from '../services/api';
 import type { Game, GameQuestion, AnswerResult, GameSession } from '../models/types';
@@ -202,7 +203,7 @@ export default function GamePlay() {
   if (phase === 'error') {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh', flexDirection: 'column', gap: '16px', padding: '24px', textAlign: 'center' }}>
-        <div style={{ fontSize: '3rem' }}>⚠️</div>
+        <EmojiImg emoji="⚠️" size="3rem" />
         <p style={{ color: '#EF4444', fontFamily: 'Outfit, sans-serif', fontSize: '1.1rem' }}>Erro ao carregar o jogo.</p>
         <Link to="/games"><button className="btn-secondary" style={{ padding: '10px 24px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '8px' }}><ArrowLeft size={16} /> Voltar</button></Link>
       </div>
@@ -220,8 +221,8 @@ export default function GamePlay() {
 
     return (
       <div style={{ padding: 'clamp(32px, 8vw, 60px) 16px', maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-        <div style={{ fontSize: 'clamp(3.5rem, 12vw, 5rem)', marginBottom: '16px', animation: 'scale-in 0.5s ease-out' }}>
-          {grade.emoji}
+        <div style={{ marginBottom: '16px', animation: 'scale-in 0.5s ease-out' }}>
+          <EmojiImg emoji={grade.emoji} size="5rem" style={{ margin: '0 auto' }} />
         </div>
         <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: 'clamp(1.5rem, 5vw, 2.2rem)', color: grade.color, marginBottom: '8px' }}>
           {grade.label}
@@ -290,7 +291,9 @@ export default function GamePlay() {
   if (phase === 'save') {
     return (
       <div style={{ padding: 'clamp(40px, 10vw, 60px) 16px', maxWidth: '520px', margin: '0 auto', textAlign: 'center' }}>
-        <div style={{ fontSize: 'clamp(3.5rem, 12vw, 5rem)', marginBottom: '16px', animation: 'scale-in 0.5s ease-out' }}>🎉</div>
+        <div style={{ marginBottom: '16px', animation: 'scale-in 0.5s ease-out' }}>
+          <EmojiImg emoji="🎉" size="5rem" style={{ margin: '0 auto' }} />
+        </div>
         <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: 'clamp(1.5rem, 5vw, 2rem)', marginBottom: '8px' }}>Pontuação Salva!</h1>
         {savedRank && (
           <p style={{ color: '#00D4FF', fontSize: '1.1rem', fontFamily: 'Outfit, sans-serif', fontWeight: 700 }}>
@@ -321,7 +324,7 @@ export default function GamePlay() {
           </button>
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '1.2rem' }}>{game.icon}</span>
+          <EmojiImg emoji={game.icon} size="1.2rem" />
           <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color, fontSize: 'clamp(0.85rem, 3vw, 1rem)' }}>{game.name}</span>
         </div>
         <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: 'clamp(0.95rem, 3vw, 1.1rem)', color }}>
