@@ -371,8 +371,13 @@ export default function CoralDefenderGame() {
 
             <div style={{ display: 'flex', gap: '16px' }}>
               <button className="btn-primary" onClick={startGame} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                <RotateCcw size={18} /> Tentar Novamente
+                <RotateCcw size={18} /> Jogar Novamente
               </button>
+              <Link to="/games" style={{ flex: 1 }}>
+                <button className="btn-secondary" style={{ width: '100%', padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  Sair do Jogo
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -389,6 +394,11 @@ export default function CoralDefenderGame() {
               <button className="btn-primary" onClick={startGame} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #059669)' }}>
                 <RotateCcw size={18} /> Jogar Novamente
               </button>
+              <Link to="/games" style={{ flex: 1 }}>
+                <button className="btn-secondary" style={{ width: '100%', padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  Sair do Jogo
+                </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -228,9 +228,16 @@ export default function MangroveMazeGame() {
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#EF4444', marginBottom: '8px' }}>Tempo Esgotado</h1>
             <p style={{ color: '#94A3B8', marginBottom: '32px' }}>A maré subiu e você não conseguiu resgatar todos a tempo.</p>
             
-            <button className="btn-primary" onClick={startGame} style={{ width: '100%', padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-              <RotateCcw size={18} /> Tentar Novamente
-            </button>
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <button className="btn-primary" onClick={startGame} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                <RotateCcw size={18} /> Jogar Novamente
+              </button>
+              <Link to="/games" style={{ flex: 1 }}>
+                <button className="btn-secondary" style={{ width: '100%', padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  Sair do Jogo
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       )}
@@ -243,14 +250,14 @@ export default function MangroveMazeGame() {
             <p style={{ color: '#E2E8F0', marginBottom: '32px' }}>Você salvou os filhotes e encontrou a saída do manguezal. Excelente trabalho de preservação!</p>
             
             <div style={{ display: 'flex', gap: '16px' }}>
+              <button className="btn-primary" onClick={startGame} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #059669)' }}>
+                <RotateCcw size={18} /> Jogar Novamente
+              </button>
               <Link to="/games" style={{ flex: 1 }}>
-                <button className="btn-secondary" style={{ width: '100%', padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                  <ArrowLeft size={18} /> Sair
+                <button className="btn-secondary" style={{ width: '100%', padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  Sair do Jogo
                 </button>
               </Link>
-              <button className="btn-primary" onClick={startGame} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #059669)' }}>
-                <RotateCcw size={18} /> De Novo
-              </button>
             </div>
           </div>
         </div>

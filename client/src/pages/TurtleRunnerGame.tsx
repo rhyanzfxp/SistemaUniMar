@@ -17,12 +17,12 @@ interface Entity {
 const TRASH_EMOJIS = ['🛍️', '🛢️', '🥤', '🗑️', '🧴'];
 const JELLYFISH_EMOJI = '🪼';
 
-const GRAVITY = 0.25;
-const JUMP_STRENGTH = -4.0;
-const MAX_FALL_SPEED = 6;
+const GRAVITY = 0.22;
+const JUMP_STRENGTH = -3.5;
+const MAX_FALL_SPEED = 5;
 const TURTLE_X = 20;
-const BASE_GAME_SPEED = 0.55;
-const SPAWN_RATE = 1800;
+const BASE_GAME_SPEED = 0.45;
+const SPAWN_RATE = 2200;
 
 export default function TurtleRunnerGame() {
   const { playCorrect, playWrong, playFanfare } = useSound();
@@ -97,14 +97,14 @@ export default function TurtleRunnerGame() {
       turtleVyRef.current = 0;
     }
 
-    gameSpeedRef.current = BASE_GAME_SPEED + Math.floor(scoreRef.current / 50) * 0.15;
-    const currentSpawnRate = Math.max(700, SPAWN_RATE - Math.floor(scoreRef.current / 50) * 150);
+    gameSpeedRef.current = BASE_GAME_SPEED + Math.floor(scoreRef.current / 30) * 0.08;
+    const currentSpawnRate = Math.max(900, SPAWN_RATE - Math.floor(scoreRef.current / 30) * 100);
 
     const now = Date.now();
     if (now - lastSpawnTimeRef.current > currentSpawnRate) {
       lastSpawnTimeRef.current = now;
       
-      const isTrash = Math.random() > 0.4;
+      const isTrash = Math.random() > 0.35;
       const emoji = isTrash ? TRASH_EMOJIS[Math.floor(Math.random() * TRASH_EMOJIS.length)] : JELLYFISH_EMOJI;
       
       entitiesRef.current.push({
@@ -112,7 +112,7 @@ export default function TurtleRunnerGame() {
         type: isTrash ? 'trash' : 'jellyfish',
         emoji,
         x: 110,
-        y: Math.random() * 70 + 15,
+        y: Math.random() * 60 + 20,
         passed: false
       });
     }
@@ -131,8 +131,8 @@ export default function TurtleRunnerGame() {
           return true;
         } else if (ent.type === 'jellyfish') {
           playCorrect();
-          newScore += 10;
-          if (newScore >= 200 && gameStateRef.current !== 'victory') {
+          newScore += 5;
+          if (newScore >= 100 && gameStateRef.current !== 'victory') {
              gameStateRef.current = 'victory';
              setGameState('victory');
              playFanfare();
@@ -306,8 +306,9 @@ export default function TurtleRunnerGame() {
             <p style={{ color: '#E2E8F0', marginBottom: '24px', lineHeight: 1.6 }}>
               O oceano é uma pista de obstáculos!<br/><br/>
               🎮 Pressione <strong>Espaço</strong> ou <strong>Clique na tela</strong> para nadar para cima.<br/>
-              🪼 Coma as <strong>águas-vivas</strong> para ganhar 10 pontos.<br/>
-              ⚠️ <strong>Morte Súbita:</strong> Desvie do lixo! Um toque e é Game Over.
+              🪼 Coma as <strong>águas-vivas</strong> para ganhar 5 pontos.<br/>
+              ⚠️ <strong>Morte Súbita:</strong> Desvie do lixo! Um toque e é Game Over.<br/>
+              🏆 Alcance <strong>100 pontos</strong> para vencer!
             </p>
             <button className="btn-primary" onClick={(e) => { e.stopPropagation(); jump(); }} style={{ padding: '16px 32px', fontSize: '1.2rem', borderRadius: '12px', width: '100%', background: 'linear-gradient(135deg, #10B981, #059669)' }}>
               Nadar Agora!
