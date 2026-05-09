@@ -6,7 +6,7 @@ import EmojiImg from '../components/EmojiImg';
 
 type Enemy = { id: number; x: number; y: number; speed: number; hp: number; maxHp: number; emoji: string };
 type Projectile = { id: number; x: number; y: number; targetId: number; dx: number; dy: number };
-type Tower = { id: number; spotIndex: number; lastFireTime: number };
+type Tower = { id: number; spotIndex: number; lastFireTime: number; angle: number; flip: boolean };
 
 const CENTER_X = 50;
 const CENTER_Y = 50;
@@ -66,11 +66,14 @@ export default function CoralDefenderGame() {
     const now = Date.now();
     const st = stateRef.current;
 
+    // Energia não sobe mais automaticamente por tempo
+    /*
     if (now - st.lastEnergyTick > 1000) {
       st.energy = Math.min(200, st.energy + 5);
       setEnergy(st.energy);
       st.lastEnergyTick = now;
     }
+    */
 
     const spawnRate = Math.max(800, 2500 - st.score * 5);
     if (now - st.lastEnemySpawn > spawnRate) {
@@ -85,7 +88,7 @@ export default function CoralDefenderGame() {
       st.enemies.push({
         id: st.nextEnemyId++,
         x, y,
-        speed: 0.05 + Math.random() * 0.05 + (st.score / 5000),
+        speed: 0.12 + Math.random() * 0.08 + (st.score / 3500),
         hp, maxHp: hp,
         emoji: isTrash ? '🛢️' : '🐡'
       });
@@ -105,12 +108,24 @@ export default function CoralDefenderGame() {
 
         if (closest) {
           const angle = Math.atan2((closest as Enemy).y - spot.y, (closest as Enemy).x - spot.x);
+          
+          const deg = angle * (180 / Math.PI);
+          // Se o inimigo está para a esquerda, o peixe (que já olha para a esquerda) rotaciona normalmente
+          // Se está para a direita, invertemos o peixe e rotacionamos
+          if (deg > 90 || deg < -90) {
+            tower.angle = deg + 180;
+            tower.flip = false;
+          } else {
+            tower.angle = deg;
+            tower.flip = true;
+          }
+          
           st.projectiles.push({
             id: st.nextProjId++,
             x: spot.x, y: spot.y,
             targetId: (closest as Enemy).id,
-            dx: Math.cos(angle) * 0.8,
-            dy: Math.sin(angle) * 0.8
+            dx: Math.cos(angle) * 1.5,
+            dy: Math.sin(angle) * 1.5
           });
           tower.lastFireTime = now;
         }
@@ -131,9 +146,14 @@ export default function CoralDefenderGame() {
         if (target.hp <= 0) {
           st.score += 10;
           setScore(st.score);
+          
+          // Ganha energia ao eliminar inimigo
+          st.energy = Math.min(200, st.energy + 15);
+          setEnergy(st.energy);
+          
           playCorrect();
           
-          if (st.score >= 500 && st.gameState !== 'victory') {
+          if (st.score >= 300 && st.gameState !== 'victory') {
             st.gameState = 'victory';
             setGameState('victory');
             playFanfare();
@@ -218,7 +238,7 @@ export default function CoralDefenderGame() {
     
     setEnergy(e => e - 40);
     setTowers(prev => {
-      const newTowers = [...prev, { id: stateRef.current.nextTowerId++, spotIndex, lastFireTime: 0 }];
+      const newTowers = [...prev, { id: stateRef.current.nextTowerId++, spotIndex, lastFireTime: 0, angle: 0, flip: false }];
       stateRef.current.towers = newTowers;
       return newTowers;
     });
@@ -289,7 +309,14 @@ export default function CoralDefenderGame() {
                 zIndex: 5
               }}
             >
-              {tower && <EmojiImg emoji="🐟" size="2rem" />}
+               {tower && (
+                <div style={{ 
+                  transition: 'transform 0.2s ease-out', 
+                  transform: `rotate(${tower.angle}deg) scaleX(${tower.flip ? -1 : 1})` 
+                }}>
+                  <EmojiImg emoji="🐟" size="2rem" />
+                </div>
+              )}
             </div>
           );
         })}
@@ -389,7 +416,7 @@ export default function CoralDefenderGame() {
           <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px' }}>
             <EmojiImg emoji="🏆" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#FCD34D', marginBottom: '8px' }}>Vitória!</h1>
-            <p style={{ color: '#E2E8F0', marginBottom: '24px' }}>Você protegeu o recife perfeitamente alcançando 500 pontos!</p>
+            <p style={{ color: '#E2E8F0', marginBottom: '24px' }}>Você protegeu o recife perfeitamente alcançando 300 pontos!</p>
             
             <div style={{ display: 'flex', gap: '16px' }}>
               <button className="btn-primary" onClick={startGame} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #059669)' }}>
