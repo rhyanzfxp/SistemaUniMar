@@ -64,6 +64,8 @@ export default function MangroveMazeGame() {
     sharkPos: { x: -1, y: -1 },
     maze: [],
   });
+  const pressedKeysRef = useRef(new Set<string>());
+
   useEffect(() => {
     stateRef.current.gameState = gameState;
   }, [gameState]);
@@ -238,6 +240,11 @@ export default function MangroveMazeGame() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignora se a tecla já está pressionada
+      if (pressedKeysRef.current.has(e.key)) return;
+
+      pressedKeysRef.current.add(e.key);
+
       if (["ArrowUp", "w", "W"].includes(e.key)) {
         e.preventDefault();
         movePlayer(0, -1);
@@ -255,8 +262,17 @@ export default function MangroveMazeGame() {
         movePlayer(1, 0);
       }
     };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      pressedKeysRef.current.delete(e.key);
+    };
+
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
   }, [movePlayer]);
 
   const startGame = () => {
