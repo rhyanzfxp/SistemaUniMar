@@ -58,7 +58,12 @@ export default function MangroveMazeGame() {
   const [sharkActive, setSharkActive] = useState(false);
   const [loseReason, setLoseReason] = useState<"timeout" | "shark">("timeout");
 
-  const stateRef = useRef({
+  const stateRef = useRef<{
+    gameState: "start" | "playing" | "gameover" | "victory";
+    playerPos: { x: number; y: number };
+    sharkPos: { x: number; y: number };
+    maze: number[][];
+  }>({
     gameState: "start",
     playerPos: { x: 1, y: 1 },
     sharkPos: { x: -1, y: -1 },
