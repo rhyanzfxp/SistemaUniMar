@@ -22,6 +22,8 @@ const glowClasses: Record<string, string> = {
   pollution: 'glow-amber',
 };
 
+const QUIZ_GAME_IDS = ['fauna-001', 'flora-001', 'pollution-001'];
+
 export default function GamesHub() {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
@@ -96,7 +98,7 @@ export default function GamesHub() {
             gap: '20px',
           }}
         >
-          {games.filter(g => g.category !== 'ecosystem').map((game) => (
+          {games.filter((g) => QUIZ_GAME_IDS.includes(g.id)).map((game) => (
             <Link to={`/games/${game.slug}`} key={game.id} style={{ textDecoration: 'none' }}>
               <div
                 className={`glass-card game-card ${glowClasses[game.category]}`}

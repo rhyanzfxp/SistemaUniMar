@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw, Droplet, Skull } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
 import EmojiImg from '../components/EmojiImg';
+import ScoreSaver from '../components/game/ScoreSaver';
 
 interface Decision {
   id: number;
@@ -294,6 +295,8 @@ export default function PollutionSimulator() {
                 <p style={{ color: '#94A3B8', fontSize: '0.85rem', margin: 0 }}>Nível de Poluição</p>
               </div>
             </div>
+
+            <ScoreSaver gameId="pollution-sim-001" score={score} />
 
             <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <button className="btn-primary" onClick={handleReset} style={{ padding: '14px 28px', borderRadius: '12px', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>

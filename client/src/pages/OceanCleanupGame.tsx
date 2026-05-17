@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw, Heart, Zap } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
 import EmojiImg from '../components/EmojiImg';
+import ScoreSaver from '../components/game/ScoreSaver';
 
 type ItemType = 'trash' | 'fish';
 
@@ -390,6 +391,10 @@ export default function OceanCleanupGame() {
               </div>
             </div>
 
+            <ScoreSaver gameId="ocean-cleanup-001" score={score} />
+
+
+
             <div style={{ display: 'flex', gap: '16px' }}>
               <button className="btn-primary" onClick={startGame} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                 <RotateCcw size={18} /> Jogar Novamente
@@ -411,6 +416,13 @@ export default function OceanCleanupGame() {
             <EmojiImg emoji="🏆" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
             <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#FCD34D', marginBottom: '8px' }}>Vitória!</h1>
             <p style={{ color: '#E2E8F0', marginBottom: '24px' }}>Você completou todos os níveis e o oceano está limpo graças a você!</p>
+
+            <div style={{ background: 'rgba(255,255,255,0.05)', padding: '24px', borderRadius: '16px', marginBottom: '16px' }}>
+              <p style={{ color: '#E2E8F0', margin: '0 0 8px', fontSize: '1.1rem' }}>Pontuação Final</p>
+              <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '3.5rem', color: '#00D4FF', margin: 0, lineHeight: 1 }}>{score}</p>
+            </div>
+
+            <ScoreSaver gameId="ocean-cleanup-001" score={score} />
 
             <div style={{ display: 'flex', gap: '16px' }}>
               <button className="btn-primary" onClick={startGame} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #00D4FF, #3B82F6)' }}>

@@ -15,7 +15,7 @@ const allowedOrigins = [
   'http://localhost:3000',
   process.env.CLIENT_URL,
   process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
-].filter(Boolean);
+].filter((origin): origin is string => Boolean(origin));
 
 app.use(cors({ 
   origin: allowedOrigins,
