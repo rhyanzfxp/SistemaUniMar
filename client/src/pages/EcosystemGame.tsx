@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { useSound } from '../context/SoundContext';
 import EmojiImg from '../components/EmojiImg';
+import ScoreSaver from '../components/game/ScoreSaver';
 
 interface Species {
   id: string;
@@ -235,6 +236,8 @@ export default function EcosystemGame() {
             </div>
           </div>
         </div>
+
+        <ScoreSaver gameId="ecosystem-001" score={score} />
 
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <button className="btn-primary" onClick={handleReset} style={{ padding: '12px 24px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '8px' }}>

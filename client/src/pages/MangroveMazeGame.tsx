@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useSound } from "../context/SoundContext";
 import EmojiImg from "../components/EmojiImg";
+import ScoreSaver from "../components/game/ScoreSaver";
 
 // 0 = Caminho, 1 = Parede, 2 = Filhote, 3 = Saída
 const INITIAL_MAZE = [
@@ -280,6 +281,8 @@ export default function MangroveMazeGame() {
     };
   }, [movePlayer]);
 
+  const finalScore = gameState === "victory" ? TOTAL_BABIES * 10 + timeLeft : babiesCollected * 10;
+
   const startGame = () => {
     setMaze(INITIAL_MAZE.map((row) => [...row]));
     setPlayerPos({ x: 1, y: 1 });
@@ -490,6 +493,11 @@ export default function MangroveMazeGame() {
                 ? "A onda foi mais rápida... Tente novamente!"
                 : ""}
             </p>
+            <div style={{ background: "rgba(255,255,255,0.05)", padding: "18px", borderRadius: "14px", marginBottom: "18px" }}>
+              <p style={{ color: "#94A3B8", margin: "0 0 6px" }}>Pontuação Final</p>
+              <p style={{ fontFamily: "Outfit, sans-serif", fontWeight: 900, fontSize: "2.4rem", color: "#10B981", margin: 0 }}>{finalScore}</p>
+            </div>
+            <ScoreSaver gameId="mangrove-maze-001" score={finalScore} />
             <button
               className="btn-primary"
               onClick={startGame}
@@ -511,6 +519,11 @@ export default function MangroveMazeGame() {
             <p style={textStyle}>
               Você salvou todos os {TOTAL_BABIES} filhotes!
             </p>
+            <div style={{ background: "rgba(255,255,255,0.05)", padding: "18px", borderRadius: "14px", marginBottom: "18px" }}>
+              <p style={{ color: "#94A3B8", margin: "0 0 6px" }}>Pontuação Final</p>
+              <p style={{ fontFamily: "Outfit, sans-serif", fontWeight: 900, fontSize: "2.4rem", color: "#10B981", margin: 0 }}>{finalScore}</p>
+            </div>
+            <ScoreSaver gameId="mangrove-maze-001" score={finalScore} />
             <button
               className="btn-primary"
               onClick={startGame}
