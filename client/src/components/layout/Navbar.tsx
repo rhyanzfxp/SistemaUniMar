@@ -42,7 +42,7 @@ export default function Navbar() {
 
         <Link
           to="/"
-          style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0 }}
+          style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0, flex: 1 }}
         >
           <div
             style={{
@@ -72,7 +72,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="hidden-mobile">
+        <div style={{ display: 'flex', gap: '4px', alignItems: 'center', justifyContent: 'center', flex: 2 }} className="hidden-mobile">
           {navItems.map(({ path, label, icon: Icon }) => {
             const active = location.pathname === path;
             return (
@@ -122,7 +122,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, justifyContent: 'flex-end' }}>
 
           <button
             onClick={toggleMute}

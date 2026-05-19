@@ -16,10 +16,11 @@ export default function Footer() {
           maxWidth: '1200px',
           margin: '0 auto',
           display: 'flex',
-          flexWrap: 'wrap',
-          gap: '32px',
-          justifyContent: 'space-between',
+          flexDirection: 'column',
+          gap: '24px',
+          justifyContent: 'center',
           alignItems: 'center',
+          textAlign: 'center',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

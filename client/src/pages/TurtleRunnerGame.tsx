@@ -27,10 +27,11 @@ const BASE_GAME_SPEED = 0.45;
 const SPAWN_RATE = 2200;
 
 export default function TurtleRunnerGame() {
-  const { playCorrect, playWrong, playFanfare } = useSound();
+  const { playCorrect, playWrong } = useSound();
 
-  const [gameState, setGameState] = useState<'start' | 'playing' | 'gameover' | 'victory'>('start');
+  const [gameState, setGameState] = useState<'start' | 'countdown' | 'playing' | 'gameover'>('start');
   const [score, setScore] = useState(0);
+  const [countdown, setCountdown] = useState(3);
   
   const canvasRef = useRef<HTMLDivElement>(null);
   
@@ -75,8 +76,21 @@ export default function TurtleRunnerGame() {
     lastEntitiesLengthRef.current = 0;
     lastFrameTime.current = 0;
     setEntitiesState([]);
-    setGameState('playing');
+    setCountdown(3);
+    setGameState('countdown');
   };
+
+  useEffect(() => {
+    if (gameState === 'countdown') {
+      if (countdown > 0) {
+        const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+        return () => clearTimeout(timer);
+      } else {
+        setGameState('playing');
+        turtleVyRef.current = JUMP_STRENGTH; // Jump on start
+      }
+    }
+  }, [gameState, countdown]);
 
   const lastFrameTime = useRef<number>(0);
 
@@ -134,11 +148,6 @@ export default function TurtleRunnerGame() {
         } else if (ent.type === 'jellyfish') {
           playCorrect();
           newScore += 5;
-          if (newScore >= 100 && gameStateRef.current !== 'victory') {
-             gameStateRef.current = 'victory';
-             setGameState('victory');
-             playFanfare();
-          }
           return false;
         }
       }
@@ -162,7 +171,7 @@ export default function TurtleRunnerGame() {
       if (turtleEl) {
         turtleEl.style.top = `${turtleYRef.current}%`;
         const rotation = Math.min(Math.max(turtleVyRef.current * 5, -20), 45);
-        turtleEl.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+        turtleEl.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scaleX(-1)`;
       }
 
       const bgEl = document.getElementById('game-bg');
@@ -229,13 +238,14 @@ export default function TurtleRunnerGame() {
         id="game-bg"
         style={{ 
           position: 'absolute', inset: 0, 
-          background: 'linear-gradient(180deg, #0284C7 0%, #082F49 100%)',
-          backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 2px, transparent 2px)',
-          backgroundSize: '100px 100px',
-          opacity: 0.6,
+          background: 'linear-gradient(180deg, #0284C7 0%, #0369A1 50%, #082F49 100%)',
+          backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 2px, transparent 2px), linear-gradient(180deg, #0284C7 0%, #0369A1 50%, #082F49 100%)',
+          backgroundSize: '80px 80px, auto',
+          opacity: 0.8,
           pointerEvents: 'none'
         }} 
       />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(16,185,129,0.2) 0%, transparent 20%)', pointerEvents: 'none' }} />
 
       {}
       <div style={{ position: 'relative', zIndex: 10, padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', pointerEvents: 'none' }}>
@@ -251,10 +261,17 @@ export default function TurtleRunnerGame() {
         </div>
       </div>
 
-      {}
       {gameState === 'playing' && score === 0 && (
-        <div style={{ position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.6)', fontFamily: 'Outfit, sans-serif', fontSize: '1.2rem', pointerEvents: 'none', animation: 'fade-in-out 2s infinite' }}>
+        <div style={{ position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.8)', fontFamily: 'Outfit, sans-serif', fontSize: '1.2rem', pointerEvents: 'none', animation: 'fade-in-out 2s infinite', zIndex: 10 }}>
           Clique repetidamente para nadar!
+        </div>
+      )}
+
+      {gameState === 'countdown' && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.4)', zIndex: 30 }}>
+          <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: '6rem', fontWeight: 900, color: '#10B981', animation: 'scale-in 0.5s ease-out', textShadow: '0 4px 20px rgba(16,185,129,0.6)' }}>
+            {countdown > 0 ? countdown : 'GO!'}
+          </div>
         </div>
       )}
 
@@ -275,7 +292,7 @@ export default function TurtleRunnerGame() {
             filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))'
           }}
         >
-          <EmojiImg emoji="🐢" size="clamp(2.5rem, 5vw, 3.5rem)" />
+          <EmojiImg emoji="🐢" size="clamp(2.5rem, 5vw, 3.5rem)" style={gameState === 'start' || gameState === 'countdown' ? { transform: 'scaleX(-1)' } : undefined} />
         </div>
 
         {}
@@ -313,7 +330,7 @@ export default function TurtleRunnerGame() {
               <EmojiImg emoji="🎮" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Pressione <strong>Espaço</strong> ou <strong>Clique na tela</strong> para nadar para cima.<br/>
               <EmojiImg emoji="🪼" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Coma as <strong>águas-vivas</strong> para ganhar 5 pontos.<br/>
               <EmojiImg emoji="⚠️" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> <strong>Morte Súbita:</strong> Desvie do lixo! Um toque e é Game Over.<br/>
-              <EmojiImg emoji="🏆" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Alcance <strong>100 pontos</strong> para vencer!
+              <EmojiImg emoji="🏆" size="1.2rem" style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> Sobreviva o máximo de tempo e bata seu recorde!
             </p>
             <button className="btn-primary" onClick={(e) => { e.stopPropagation(); jump(); }} style={{ padding: '16px 32px', fontSize: '1.2rem', borderRadius: '12px', width: '100%', background: 'linear-gradient(135deg, #10B981, #059669)' }}>
               Nadar Agora!
@@ -352,33 +369,6 @@ export default function TurtleRunnerGame() {
         </div>
       )}
 
-      {gameState === 'victory' && (
-        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(16,185,129,0.2)', backdropFilter: 'blur(8px)', zIndex: 20, animation: 'fade-in 0.3s ease-out' }}>
-          <div className="glass-card" style={{ padding: '40px', maxWidth: '400px', textAlign: 'center', margin: '20px', pointerEvents: 'auto' }} onMouseDown={(e) => e.stopPropagation()}>
-            <EmojiImg emoji="🏆" size="4rem" style={{ marginBottom: '16px', display: 'block', margin: '0 auto 16px' }} />
-            <h1 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '2.5rem', color: '#FCD34D', marginBottom: '8px' }}>Vitória!</h1>
-            <p style={{ color: '#E2E8F0', marginBottom: '24px' }}>Você sobreviveu ao oceano de lixo e comeu muitas águas-vivas!</p>
-
-            <div style={{ background: 'rgba(255,255,255,0.05)', padding: '24px', borderRadius: '16px', marginBottom: '16px' }}>
-              <p style={{ color: '#E2E8F0', margin: '0 0 8px', fontSize: '1.1rem' }}>Pontuação Final</p>
-              <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '3.5rem', color: '#10B981', margin: 0, lineHeight: 1 }}>{score}</p>
-            </div>
-
-            <ScoreSaver gameId="turtle-runner-001" score={score} />
-            
-            <div style={{ display: 'flex', gap: '16px' }}>
-              <button className="btn-primary" onClick={(e) => { e.stopPropagation(); startGame(); }} style={{ flex: 1, padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: 'linear-gradient(135deg, #10B981, #059669)' }}>
-                <RotateCcw size={18} /> Jogar Novamente
-              </button>
-              <Link to="/games" style={{ flex: 1 }}>
-                <button className="btn-secondary" style={{ width: '100%', padding: '14px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', border: '1px solid rgba(255,255,255,0.1)' }} onClick={(e) => e.stopPropagation()}>
-                  Sair do Jogo
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
