@@ -296,13 +296,13 @@ export default function MangroveMazeGame() {
 
   const getCellContent = (val: number, x: number, y: number) => {
     if (sharkPos.x === x && sharkPos.y === y)
-      return <EmojiImg emoji="🌊" size="1.1rem" />;
+      return <EmojiImg emoji="🌊" size="1.2em" />;
     if (playerPos.x === x && playerPos.y === y)
-      return <EmojiImg emoji="🦀" size="1.1rem" />;
-    if (val === 1) return <EmojiImg emoji="🌿" size="1.1rem" />;
+      return <EmojiImg emoji="🦀" size="1.2em" />;
+    if (val === 1) return <EmojiImg emoji="🌿" size="1.2em" />;
     if (val === 2)
-      return <EmojiImg emoji="🦀" size="0.865rem" style={{ opacity: 0.7 }} />;
-    if (val === 3) return <EmojiImg emoji="🏁" size="1.1rem" />;
+      return <EmojiImg emoji="🦀" size="0.9em" style={{ opacity: 0.7 }} />;
+    if (val === 3) return <EmojiImg emoji="🏁" size="1.2em" />;
     return "";
   };
 
@@ -352,17 +352,18 @@ export default function MangroveMazeGame() {
       </div>
 
       <div
+        className="maze-container"
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          height: "calc(100vh - 60px)",
           padding: "10px",
           gap: "20px",
         }}
       >
         {gameState === "playing" && (
           <div
+            className="maze-controls-left"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -372,18 +373,18 @@ export default function MangroveMazeGame() {
             }}
           >
             <button onClick={() => movePlayer(0, -1)} style={controlBtnStyle}>
-              <ArrowUp size={20} />
+              <ArrowUp size={24} />
             </button>
             <div style={{ display: "flex", gap: "10px" }}>
               <button onClick={() => movePlayer(-1, 0)} style={controlBtnStyle}>
-                <ArrowLeftIcon size={20} />
+                <ArrowLeftIcon size={24} />
               </button>
               <button onClick={() => movePlayer(1, 0)} style={controlBtnStyle}>
-                <ArrowRight size={20} />
+                <ArrowRight size={24} />
               </button>
             </div>
             <button onClick={() => movePlayer(0, 1)} style={controlBtnStyle}>
-              <ArrowDown size={20} />
+              <ArrowDown size={24} />
             </button>
           </div>
         )}
@@ -392,9 +393,10 @@ export default function MangroveMazeGame() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(24, 1fr)",
-              width: "min(80vh, 750px)",
-              height: "min(80vh, 750px)",
+              gridTemplateColumns: "repeat(24, minmax(0, 1fr))",
+              width: "100%",
+              maxWidth: "min(95vw, 80vh, 750px)",
+              aspectRatio: "24/25",
               gap: "0.5px",
               background: "rgba(0,0,0,0.3)",
               padding: "4px",
@@ -413,7 +415,7 @@ export default function MangroveMazeGame() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "0.9rem",
+                    fontSize: "min(3.5vw, 1.2rem)",
                     transition: "all 0.1s",
                     transform:
                       playerPos.x === x && playerPos.y === y
@@ -431,6 +433,7 @@ export default function MangroveMazeGame() {
 
         {gameState === "playing" && (
           <div
+            className="maze-controls-right"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -453,6 +456,21 @@ export default function MangroveMazeGame() {
           </div>
         )}
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .maze-container {
+            flex-direction: column-reverse;
+          }
+          .maze-controls-left {
+            margin-top: 10px;
+          }
+          .maze-controls-right {
+            flex-direction: row !important;
+            justify-content: center;
+          }
+        }
+      `}</style>
 
       {/* OVERLAYS DE ESTADO */}
       {gameState === "start" && (

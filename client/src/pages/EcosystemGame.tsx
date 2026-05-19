@@ -83,11 +83,6 @@ export default function EcosystemGame() {
   const [finished, setFinished] = useState(false);
   const [score, setScore] = useState(0);
   const feedbackTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const touchSpeciesId = useRef<string | null>(null);
-  const touchGhost = useRef<HTMLDivElement | null>(null);
-  const lastTouchTime = useRef<number>(0);
-
   const totalSpecies = SPECIES.length;
   const placedCount = Object.values(placed).reduce((a, b) => a + b.length, 0);
   const correctCount = Object.values(placed).reduce((a, b) => a + b.filter(x => x.correct).length, 0);
@@ -139,56 +134,16 @@ export default function EcosystemGame() {
     setOverZone(null);
   };
 
-  const createGhost = (species: Species, x: number, y: number) => {
-    const ghost = document.createElement('div');
-    ghost.textContent = species.emoji;
-    ghost.style.cssText = `
-      position:fixed; z-index:9999; font-size:2rem;
-      pointer-events:none; left:0; top:0;
-      transform: translate3d(${x}px, ${y}px, 0) translate(-50%,-50%);
-      filter: drop-shadow(0 4px 12px rgba(0,212,255,0.6));
-      will-change: transform;
-    `;
-    document.body.appendChild(ghost);
-    touchGhost.current = ghost;
+  const handleSpeciesClick = (id: string) => {
+    setDraggedId(id === draggedId ? null : id);
   };
 
-  const onTouchStart = (e: React.TouchEvent, speciesId: string) => {
-    touchSpeciesId.current = speciesId;
-    const touch = e.touches[0];
-    const species = SPECIES.find(s => s.id === speciesId)!;
-    createGhost(species, touch.clientX, touch.clientY);
-    lastTouchTime.current = Date.now();
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-
-    if (e.cancelable) e.preventDefault();
-    const touch = e.touches[0];
-
-    if (touchGhost.current) {
-      touchGhost.current.style.transform = `translate3d(${touch.clientX}px, ${touch.clientY}px, 0) translate(-50%,-50%)`;
+  const handleZoneClick = (zoneId: ZoneId) => {
+    if (draggedId) {
+      handleDrop(zoneId, draggedId);
+      setDraggedId(null);
+      setOverZone(null);
     }
-
-    const now = Date.now();
-    if (now - lastTouchTime.current > 60) {
-      lastTouchTime.current = now;
-      const el = document.elementFromPoint(touch.clientX, touch.clientY);
-      const zoneEl = el?.closest('[data-zone]') as HTMLElement | null;
-      setOverZone(zoneEl ? (zoneEl.dataset.zone as ZoneId) : null);
-    }
-  };
-
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchGhost.current) { document.body.removeChild(touchGhost.current); touchGhost.current = null; }
-    const touch = e.changedTouches[0];
-    const el = document.elementFromPoint(touch.clientX, touch.clientY);
-    const zoneEl = el?.closest('[data-zone]') as HTMLElement | null;
-    if (zoneEl && touchSpeciesId.current) {
-      handleDrop(zoneEl.dataset.zone as ZoneId, touchSpeciesId.current);
-    }
-    touchSpeciesId.current = null;
-    setOverZone(null);
   };
 
   const handleReset = () => {
@@ -197,6 +152,7 @@ export default function EcosystemGame() {
     setScore(0);
     setFinished(false);
     setFeedback(null);
+    setDraggedId(null);
   };
 
   const percentage = Math.round((correctCount / totalSpecies) * 100);
@@ -281,8 +237,7 @@ export default function EcosystemGame() {
       <div className="glass-card" style={{ padding: '12px 18px', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
         <EmojiImg emoji="💡" size="1.2rem" />
         <p style={{ color: '#94A3B8', fontSize: '0.82rem', margin: 0, lineHeight: 1.5 }}>
-          <strong style={{ color: '#E2E8F0' }}>Arraste</strong> cada espécie para a zona correta do manguezal.
-          Em telas touch, pressione e arraste.
+          <strong style={{ color: '#E2E8F0' }}>Arraste</strong> ou <strong style={{ color: '#E2E8F0' }}>toque</strong> na espécie e depois na zona correta do manguezal.
         </p>
       </div>
 
@@ -320,6 +275,7 @@ export default function EcosystemGame() {
               onDragOver={(e) => onDragOver(e, zone.id)}
               onDragLeave={onDragLeave}
               onDrop={(e) => onDropZone(e, zone.id)}
+              onClick={() => handleZoneClick(zone.id)}
               className="glass-card"
               style={{
                 minHeight: '180px',
@@ -390,11 +346,9 @@ export default function EcosystemGame() {
               <div
                 key={species.id}
                 draggable
+                onClick={() => handleSpeciesClick(species.id)}
                 onDragStart={() => onDragStart(species.id)}
                 onDragEnd={onDragEnd}
-                onTouchStart={(e) => onTouchStart(e, species.id)}
-                onTouchMove={onTouchMove}
-                onTouchEnd={onTouchEnd}
                 className="species-chip"
                 title={species.hint}
                 style={{
